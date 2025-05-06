@@ -286,6 +286,8 @@ Below is an example of the JSON file contents:
 
 To view our complete trajectory dataset, please visit our <a href="https://huggingface.co/datasets/zwq2018/embodied_reasoner">Hugging Face</a> Page.
 
+Please refer to `data_endine/README.md` for checking the details about the data engine.
+
 ## Citation
 
 If you find our work helpful, feel free to give us a cite.

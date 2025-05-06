@@ -2343,61 +2343,60 @@ if __name__ == "__main__":
     
     ###### step1. choose a task type from task_types #############################
     task_types=[
-        "single_search",
-        "single_search_from_closerep",
-        "single_pickup",
-        "single_pickup_from_closerep",
-        "single_toggle",
-        "pickup_and_put",
-        "pickup_and_put_in_closerep",
-        "pickup_from_closerep_and_put",
-        "pickup_from_closerep_and_put_in_closerep",
-        "ordered_pickup_two_object_and_put"
+        "single_search",                            # tasktype: search subtasktype: Exposed Object Search
+        "single_search_from_closerep",              # tasktype: search subtasktype: Enclosed Object Search
+        "single_pickup",                            # tasktype: manipulate subtasktype: Exposed Object Grasping
+        "single_pickup_from_closerep",              # tasktype: manipulate subtasktype: Enclosed Object Grasping
+        "single_toggle",                            # tasktype: manipulate subtasktype: Exposed Object Toggle
+        "pickup_and_put",                           # tasktype: transport subtasktype: Exposed-to-Exposed Object Transfer
+        "pickup_and_put_in_closerep",               # tasktype: transport subtasktype: Exposed-to-Enclosed Object Transfer
+        "pickup_from_closerep_and_put",             # tasktype: transport subtasktype: Enclosed-to-Exposed Object Transfer
+        "pickup_from_closerep_and_put_in_closerep", # tasktype: transport subtasktype: Enclosed-to-Enclosed Object Transfer
+        "ordered_pickup_two_object_and_put"         # tasktype: composite subtasktype: Sequential Object Transfer
     ]
     task_type="single_search"
     
     ##### step2. set the number of tasks to generate for each scene #############
     num=1
     
-    for i in range(0,5):
-        room_type = ['kitchens','living_rooms','bedrooms','bathrooms']
-        for room in room_type: 
-            if room == 'kitchens':
-                floorplans = [f"FloorPlan{i}" for i in range(1,31) if i!=8]
-            elif room == 'living_rooms':
-                floorplans = [f"FloorPlan{200 + i}" for i in range(1,31)]
-            elif room == 'bedrooms':
-                floorplans = [f"FloorPlan{300 + i}" for i in range(1,31)]
-            elif room == 'bathrooms':
-                floorplans = [f"FloorPlan{400 + i}" for i in range(1,31)]
+    room_type = ['kitchens','living_rooms','bedrooms','bathrooms']
+    for room in room_type: 
+        if room == 'kitchens':
+            floorplans = [f"FloorPlan{i}" for i in range(1,31) if i!=8]
+        elif room == 'living_rooms':
+            floorplans = [f"FloorPlan{200 + i}" for i in range(1,31)]
+        elif room == 'bedrooms':
+            floorplans = [f"FloorPlan{300 + i}" for i in range(1,31)]
+        elif room == 'bathrooms':
+            floorplans = [f"FloorPlan{400 + i}" for i in range(1,31)]
 
-            for scene in floorplans:  
-                
-                metadata_path=f"taskgenerate/{room}/{scene}/metadata.json"
-                metadata=load_json(metadata_path)
-                metadata=metadata[0]
-                generate_task_path=f"{task_type}_task_metadata/{scene}.json"
-                if task_type=="ordered_pickup_two_object_and_put":
-                    generate_task_path=f"ordered/{task_type}_task_metadata/{scene}.json"
-                taskgenerate=TaskGenerate(metadata,generate_task_path,metadata_path)
+        for scene in floorplans:  
+            
+            metadata_path=f"taskgenerate/{room}/{scene}/metadata.json"
+            metadata=load_json(metadata_path)
+            metadata=metadata[0]
+            generate_task_path=f"{task_type}_task_metadata/{scene}.json"
+            if task_type=="ordered_pickup_two_object_and_put":
+                generate_task_path=f"ordered/{task_type}_task_metadata/{scene}.json"
+            taskgenerate=TaskGenerate(metadata,generate_task_path,metadata_path)
 
-                if task_type=="single_search":
-                    taskgenerate.single_search(num)
-                elif task_type=="single_search_from_closerep":
-                    taskgenerate.single_search_from_closerep(num)
-                elif task_type=="single_pickup":
-                    taskgenerate.single_pickup(num)
-                elif task_type=="single_pickup_from_closerep":
-                    taskgenerate.single_pickup_from_closerep(num)
-                elif task_type=="single_toggle":
-                    taskgenerate.single_toggle(num)
-                elif task_type=="pickup_and_put":
-                    taskgenerate.pickup_and_put(num)
-                elif task_type=="pickup_and_put_in_closerep":
-                    taskgenerate.pickup_and_put_in_closerep(num)
-                elif task_type=="pickup_from_closerep_and_put":
-                    taskgenerate.pickup_from_closerep_and_put(num)
-                elif task_type=="pickup_from_closerep_and_put_in_closerep":
-                    taskgenerate.pickup_from_closerep_and_put_in_closerep(num)
-                elif task_type=="ordered_pickup_two_object_and_put":
-                    taskgenerate.ordered_pickup_two_object_and_put(room,num)
+            if task_type=="single_search":
+                taskgenerate.single_search(num)
+            elif task_type=="single_search_from_closerep":
+                taskgenerate.single_search_from_closerep(num)
+            elif task_type=="single_pickup":
+                taskgenerate.single_pickup(num)
+            elif task_type=="single_pickup_from_closerep":
+                taskgenerate.single_pickup_from_closerep(num)
+            elif task_type=="single_toggle":
+                taskgenerate.single_toggle(num)
+            elif task_type=="pickup_and_put":
+                taskgenerate.pickup_and_put(num)
+            elif task_type=="pickup_and_put_in_closerep":
+                taskgenerate.pickup_and_put_in_closerep(num)
+            elif task_type=="pickup_from_closerep_and_put":
+                taskgenerate.pickup_from_closerep_and_put(num)
+            elif task_type=="pickup_from_closerep_and_put_in_closerep":
+                taskgenerate.pickup_from_closerep_and_put_in_closerep(num)
+            elif task_type=="ordered_pickup_two_object_and_put":
+                taskgenerate.ordered_pickup_two_object_and_put(room,num)
