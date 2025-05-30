@@ -43,7 +43,7 @@
 https://github.com/user-attachments/assets/da9c5b42-ab8e-4101-9ec0-a226590d23fc
 
 
-🎙️ **Paper Sharing**: https://b23.tv/dfS6537
+🎙️ **Paper Sharing**: https://www.bilibili.com/video/BV1Cs7Hz4ETk/?spm_id_from=333.337.search-card.all.click&vd_source=818fc4816fcb6a1d8c82455cd7851b48
 
 
 
