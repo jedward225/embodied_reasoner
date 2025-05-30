@@ -25,6 +25,7 @@
           <!-- &nbsp&nbsp | &nbsp&nbsp 📑 <a href="https://arxiv.org/abs/2503.21696">Arxiv</a>  -->
           &nbsp&nbsp | &nbsp&nbsp <img src="assets/arxiv_logo.png" alt="arXiv" height="14"> <a href="https://arxiv.org/abs/2503.21696">Arxiv</a> 
           &nbsp&nbsp | &nbsp&nbsp 📑 <a href="https://embodied-reasoner.github.io">WebPage</a> 
+          &nbsp&nbsp | &nbsp&nbsp 📺 <a href="https://www.bilibili.com/video/BV1Cs7Hz4ETk/?spm_id_from=333.337.search-card.all.click&vd_source=818fc4816fcb6a1d8c82455cd7851b48">Bilibili</a>
 <br>
 </p>
 
