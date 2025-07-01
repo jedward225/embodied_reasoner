@@ -1,3 +1,5 @@
+torch==2.5.1
+torchvision==0.20.1
 ai2thor==5.0.0
 Flask==3.1.0
 opencv-python==4.7.0.72
@@ -13,9 +15,9 @@ sentence-transformers==3.4.1
 sentencepiece==0.2.0
 tiktoken==0.7.0
 tokenizers==0.21.0
-torch==2.5.1
-torchvision==0.20.1
 transformers @ git+https://github.com/huggingface/transformers.git@0de15c988b0d27758ce360adb2627e9ea99e91b3
 triton==3.1.0
 vllm==0.7.2
 numpy
+
+#    pip install torch==2.5.1 torchvision==0.20.1 后 再运行    pip install -r requirements.txt --no-deps
