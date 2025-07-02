@@ -20,4 +20,4 @@ triton==3.1.0
 vllm==0.7.2
 numpy
 
-#    pip install torch==2.5.1 torchvision==0.20.1 后 再运行    pip install -r requirements.txt --no-deps
+# pip install torch==2.5.1 torchvision==0.20.1 后，再运行 pip install -r requirements.txt --no-deps
