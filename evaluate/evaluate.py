@@ -235,9 +235,15 @@ def get_trajectory(controller, task, model, max_step=10, port=-1):
         return trajectory, messages, save_path
     except Exception as e:
         print(e)
-        autogn.controller.stop()
-        del autogn
+        # Only cleanup autogn if it was successfully initialized
+        if 'autogn' in locals():
+            try:
+                autogn.controller.stop()
+                del autogn
+            except:
+                pass
         print(f"--task{task['identity']}Track acquisition failed -- emulator /api exception, end the current evaluation task!!!--")
+        return None, None, None
 
 def test(controller, test_data, model="Qwen2.5-VL-3B-Instruct", port=-1):
     save_path=f"./data/{model}/{test_data['identity']}_{test_data['tasktype']}_{test_data['scene']}_{test_data['instruction_idx']}"

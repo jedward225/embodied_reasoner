@@ -7,14 +7,44 @@ class EventObject:
         self.objects = event.metadata["objects"]
         self.object2color = event.object_id_to_color
         self.color2object = event.color_to_object_id
-        _,self.item2object = self.get_objects()  
+        _, enhanced_mapping = self.get_objects()
+        
+        # 新的映射方式 (推荐使用)
+        self.id2object = enhanced_mapping["by_id"]        # objectId -> object
+        self.type2objects = enhanced_mapping["by_type"]   # objectType -> [objects]
+        
+        # 保持向后兼容性 (但会有同名物体覆盖警告)
+        self.item2object = enhanced_mapping["by_name"]    # name -> object (兼容性)  
 
 
     def get_objects(self) -> Tuple[List[dict], Dict[str, dict]]:
-        item2object = {}
+        item2object = {}  # objectId -> object mapping (唯一映射)
+        type2objects = {}  # objectType -> [objects] mapping (类型到实例列表)
+        
         for item in self.objects:
-            item2object[item["name"]] = item
-        return self.objects, item2object    
+            # 使用唯一ID作为主映射键，解决同名物体混淆问题
+            item2object[item["objectId"]] = item
+            
+            # 维护类型到实例列表的映射，支持按类型查找
+            if item["objectType"] not in type2objects:
+                type2objects[item["objectType"]] = []
+            type2objects[item["objectType"]].append(item)
+        
+        # 为了兼容性，也保留旧的name映射（但会有覆盖问题的警告）
+        name2object = {}
+        for item in self.objects:
+            if item["name"] in name2object:
+                print(f"⚠️  警告: 发现同名物体 '{item['name']}'，建议使用 objectId 进行精确访问")
+            name2object[item["name"]] = item
+            
+        # 返回增强的映射信息
+        enhanced_mapping = {
+            "by_id": item2object,      # 推荐使用：按唯一ID映射
+            "by_type": type2objects,   # 新增：按类型映射到实例列表  
+            "by_name": name2object     # 兼容性：按名称映射（可能覆盖）
+        }
+        
+        return self.objects, enhanced_mapping    
     
     def get_all_item_position(self) -> dict:
         item2position = {}
@@ -126,6 +156,23 @@ class EventObject:
     
     def get_item_orientation(self, item_name: str) -> dict:
         return self.item2object[item_name]["rotation"]
+    
+    # 新增：支持按objectId精确查找的方法
+    def get_object_by_id(self, object_id: str) -> dict:
+        """根据唯一objectId获取物体信息（推荐使用）"""
+        return self.id2object.get(object_id, None)
+    
+    def get_objects_by_type(self, object_type: str) -> List[dict]:
+        """根据物体类型获取所有同类物体列表"""
+        return self.type2objects.get(object_type, [])
+    
+    def find_object_id_by_name(self, name_pattern: str) -> List[str]:
+        """根据名称模式查找匹配的objectId列表"""
+        matching_ids = []
+        for object_id, obj in self.id2object.items():
+            if name_pattern.lower() in obj["name"].lower():
+                matching_ids.append(object_id)
+        return matching_ids
 
 
 def extract_item(response):
@@ -138,15 +185,41 @@ def extract_item(response):
         print("No matches found.")
     return last_match
 
-def match_object(instruction, item2object):
+def match_object(instruction, mapping_dict):
+    """
+    根据指令匹配物体，支持新的映射格式
+    mapping_dict: 可以是旧格式的 item2object 或新格式的 enhanced_mapping
+    """
+    # 兼容新旧两种格式
+    if isinstance(mapping_dict, dict) and "by_id" in mapping_dict:
+        # 新格式：enhanced_mapping
+        item2object = mapping_dict["by_name"]  # 使用name映射作为兼容
+        id2object = mapping_dict["by_id"]      # 可用于精确访问
+    else:
+        # 旧格式：直接的 item2object 字典
+        item2object = mapping_dict
+        id2object = mapping_dict
+    
     # response = call_llm(instruction, str(list(item2object.keys())))
     # item = extract_item(response)
     # return item2object[item]
+    
+    # 示例物体ID (实际应该通过LLM推理获得)
     # item2object['TissueBox_88aca81e']
     # item2object['Television_deb5e431']
     # 'DiningTable_806ce8fd'
     # CoffeeTable_d8cc0ea5
     # Sofa_9b5cac5c
     # 'Ottoman_89afd8ca'
-    return item2object['LightSwitch_c3c009ea']
+    
+    # 尝试按objectId访问（推荐方式）
+    if 'LightSwitch_c3c009ea' in id2object:
+        return id2object['LightSwitch_c3c009ea']
+    
+    # 回退到name访问（兼容性）
+    for name, obj in item2object.items():
+        if 'LightSwitch' in name:
+            return obj
+            
+    return None
 # item2object['Newspaper_a1a8109a']

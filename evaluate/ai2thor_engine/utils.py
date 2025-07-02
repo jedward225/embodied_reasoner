@@ -13,11 +13,34 @@ class EventObject:
 
     @staticmethod
     def get_objects(event) -> Tuple[List[dict], Dict[str, dict]]:
-        item2object = {}
+        item2object = {}  # objectId -> object mapping (唯一映射)
+        type2objects = {}  # objectType -> [objects] mapping (类型到实例列表)
         objects = event.metadata["objects"]
+        
         for item in objects:
-            item2object[item["name"]] = item
-        return objects, item2object
+            # 使用唯一ID作为主映射键，解决同名物体混淆问题
+            item2object[item["objectId"]] = item
+            
+            # 维护类型到实例列表的映射，支持按类型查找
+            if item["objectType"] not in type2objects:
+                type2objects[item["objectType"]] = []
+            type2objects[item["objectType"]].append(item)
+        
+        # 为了兼容性，也保留旧的name映射（但会有覆盖问题的警告）
+        name2object = {}
+        for item in objects:
+            if item["name"] in name2object:
+                print(f"⚠️  警告: 发现同名物体 '{item['name']}'，建议使用 objectId 进行精确访问")
+            name2object[item["name"]] = item
+            
+        # 返回增强的映射信息
+        enhanced_mapping = {
+            "by_id": item2object,      # 推荐使用：按唯一ID映射
+            "by_type": type2objects,   # 新增：按类型映射到实例列表  
+            "by_name": name2object     # 兼容性：按名称映射（可能覆盖）
+        }
+        
+        return objects, enhanced_mapping
     
     @staticmethod
     def get_object_by_id(event, obj_id):
