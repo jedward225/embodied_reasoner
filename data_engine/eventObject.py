@@ -1,6 +1,7 @@
 import ai2thor.server
 from typing import List, Dict, Tuple
 import re
+from typing import Optional
 
 class EventObject:
     def __init__(self, event: ai2thor.server.Event):
@@ -18,12 +19,12 @@ class EventObject:
 
 
     def get_objects(self) -> Tuple[List[dict], Dict[str, dict]]:
-        item2object = {}  # objectId -> object mapping (唯一映射)
+        id2objects = {}  # objectId -> object mapping (唯一映射)
         type2objects = {}  # objectType -> [objects] mapping (类型到实例列表)
         
         for item in self.objects:
             # 使用唯一ID作为主映射键，解决同名物体混淆问题
-            item2object[item["objectId"]] = item
+            id2objects[item["objectId"]] = item
             
             # 维护类型到实例列表的映射，支持按类型查找
             if item["objectType"] not in type2objects:
@@ -34,12 +35,11 @@ class EventObject:
         name2object = {}
         for item in self.objects:
             if item["name"] in name2object:
-                print(f"⚠️  警告: 发现同名物体 '{item['name']}'，建议使用 objectId 进行精确访问")
+                print(f"⚠️ Warning: Duplicate object name '{item['name']}' detected. It is recommended to use objectId for precise access.")
             name2object[item["name"]] = item
             
-        # 返回增强的映射信息
         enhanced_mapping = {
-            "by_id": item2object,      # 推荐使用：按唯一ID映射
+            "by_id": id2objects,      # 推荐使用：按唯一ID映射
             "by_type": type2objects,   # 新增：按类型映射到实例列表  
             "by_name": name2object     # 兼容性：按名称映射（可能覆盖）
         }
@@ -157,8 +157,7 @@ class EventObject:
     def get_item_orientation(self, item_name: str) -> dict:
         return self.item2object[item_name]["rotation"]
     
-    # 新增：支持按objectId精确查找的方法
-    def get_object_by_id(self, object_id: str) -> dict:
+    def get_object_by_id(self, object_id: str) -> Optional[dict]:
         """根据唯一objectId获取物体信息（推荐使用）"""
         return self.id2object.get(object_id, None)
     
@@ -204,7 +203,6 @@ def match_object(instruction, mapping_dict):
     # item = extract_item(response)
     # return item2object[item]
     
-    # 示例物体ID (实际应该通过LLM推理获得)
     # item2object['TissueBox_88aca81e']
     # item2object['Television_deb5e431']
     # 'DiningTable_806ce8fd'
@@ -223,3 +221,20 @@ def match_object(instruction, mapping_dict):
             
     return None
 # item2object['Newspaper_a1a8109a']
+'''
+Previous code:
+def match_object(instruction, item2object):
+    # response = call_llm(instruction, str(list(item2object.keys())))
+    # item = extract_item(response)
+    # return item2object[item]
+    # item2object['TissueBox_88aca81e']
+    # item2object['Television_deb5e431']
+    # 'DiningTable_806ce8fd'
+    # CoffeeTable_d8cc0ea5
+    # Sofa_9b5cac5c
+    # 'Ottoman_89afd8ca'
+    return item2object['LightSwitch_c3c009ea']
+# item2object['Newspaper_a1a8109a']
+
+This function is not used in the later code. So here is fine...
+'''
