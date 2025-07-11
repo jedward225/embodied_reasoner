@@ -2,6 +2,12 @@
 """
 测试脚本：验证同名物体混淆问题的修复效果
 """
+import sys
+import os
+
+# Add the project's root directory to Python's path
+# This allows imports from any directory in the project
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from ai2thor.controller import Controller
 from ai2thor.platform import CloudRendering
@@ -124,8 +130,8 @@ def test_object_mapping_fix():
     controller.stop()
     
     print("\n=== 测试完成 ===")
-    print("✅ 同名物体混淆问题已修复！")
-    print("📋 现在可以使用以下新方法:")
+    print("同名物体混淆问题已修复！")
+    print("现在可以使用以下新方法:")
     print("   - event_obj.get_object_by_id(object_id)  # 精确查找")
     print("   - event_obj.get_objects_by_type(type)   # 按类型查找所有实例")
     print("   - event_obj.find_object_id_by_name(name)  # 模糊名称匹配")
