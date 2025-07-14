@@ -152,4 +152,14 @@ if __name__ == "__main__":
     print("✅ Ready to test enhanced evaluation!")
     print()
     
-    app.run(host="127.0.0.1", port=10000, debug=False)
+    try:
+        app.run(host="127.0.0.1", port=10000, debug=False, use_reloader=False)
+    except OSError as e:
+        if "Address already in use" in str(e):
+            print("\n❌ Port 10000 is already in use!")
+            print("💡 Kill any existing servers and try again")
+            print("💡 Or use: pkill -f 'port.*10000'")
+        else:
+            print(f"\n❌ Server error: {e}")
+    except KeyboardInterrupt:
+        print("\n🛑 Server stopped by user")
