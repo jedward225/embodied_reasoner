@@ -38,6 +38,9 @@ def load_data(args):
     return group_data[args.cur_count-1]
 
 def get_trajectory(controller, task, model, max_step=10, port=-1):
+    # Explicit import to ensure function is available
+    from utils import get_max_steps
+    
     try:
         scene = task["scene"]
         task_name = task["taskquery"]
