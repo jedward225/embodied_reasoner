@@ -1,0 +1,147 @@
+{
+  "total_scenarios": 8,
+  "passed": 6,
+  "failed": 2,
+  "execution_time": 0.0008087158203125,
+  "results_by_type": {
+    "ambiguity": {
+      "passed": 1,
+      "failed": 0,
+      "total": 1
+    },
+    "spatial": {
+      "passed": 2,
+      "failed": 2,
+      "total": 4
+    },
+    "geometric": {
+      "passed": 2,
+      "failed": 0,
+      "total": 2
+    },
+    "integration": {
+      "passed": 1,
+      "failed": 0,
+      "total": 1
+    }
+  },
+  "detailed_results": [
+    {
+      "scenario_id": "multi_book_001",
+      "success": true,
+      "selected_object_id": null,
+      "confidence": 0.0,
+      "execution_time": 0.0005748271942138672,
+      "error_message": null,
+      "enhancement_used": true,
+      "detailed_metrics": {
+        "has_ambiguity": true,
+        "reason": "Multiple objects of same type, no spatial constraints",
+        "clarification_question": "I see 3 Books: one nearby (front) and one nearby (right) and one farther away (right). Which one would you like?"
+      }
+    },
+    {
+      "scenario_id": "multi_book_002",
+      "success": false,
+      "selected_object_id": "Book|-00.47|+01.15|+00.48",
+      "confidence": 0.2,
+      "execution_time": 3.5762786865234375e-05,
+      "error_message": null,
+      "enhancement_used": true,
+      "detailed_metrics": {
+        "spatial_constraints": {
+          "left": [
+            "左",
+            "左边"
+          ]
+        }
+      }
+    },
+    {
+      "scenario_id": "multi_book_003",
+      "success": false,
+      "selected_object_id": "Book|-00.47|+01.15|+00.48",
+      "confidence": 0.6,
+      "execution_time": 2.0265579223632812e-05,
+      "error_message": null,
+      "enhancement_used": true,
+      "detailed_metrics": {
+        "spatial_constraints": {}
+      }
+    },
+    {
+      "scenario_id": "large_sofa_001",
+      "success": true,
+      "selected_object_id": "Sofa|+02.25|+00.57|+01.50",
+      "confidence": 1.0,
+      "execution_time": 3.552436828613281e-05,
+      "error_message": null,
+      "enhancement_used": true,
+      "detailed_metrics": {
+        "strategy_type": "multi_view",
+        "viewpoint_count": 5,
+        "optimal_distance": 3.0
+      }
+    },
+    {
+      "scenario_id": "small_cup_001",
+      "success": true,
+      "selected_object_id": "Cup|+00.25|+01.15|+00.30",
+      "confidence": 1.0,
+      "execution_time": 7.867813110351562e-06,
+      "error_message": null,
+      "enhancement_used": true,
+      "detailed_metrics": {
+        "strategy_type": "single_view",
+        "viewpoint_count": 1,
+        "optimal_distance": 0.5
+      }
+    },
+    {
+      "scenario_id": "spatial_proximity_001",
+      "success": true,
+      "selected_object_id": "Cup|+00.25|+01.15|+00.30",
+      "confidence": 1.0,
+      "execution_time": 1.71661376953125e-05,
+      "error_message": null,
+      "enhancement_used": true,
+      "detailed_metrics": {
+        "spatial_constraints": {
+          "near": [
+            "near"
+          ]
+        }
+      }
+    },
+    {
+      "scenario_id": "spatial_direction_001",
+      "success": true,
+      "selected_object_id": "Cup|+01.50|+01.15|+00.30",
+      "confidence": 1.0,
+      "execution_time": 1.2636184692382812e-05,
+      "error_message": null,
+      "enhancement_used": true,
+      "detailed_metrics": {
+        "spatial_constraints": {
+          "right": [
+            "right"
+          ]
+        }
+      }
+    },
+    {
+      "scenario_id": "integration_001",
+      "success": true,
+      "selected_object_id": "Book|+01.23|+00.91|+00.31",
+      "confidence": 1.0,
+      "execution_time": 5.650520324707031e-05,
+      "error_message": null,
+      "enhancement_used": true,
+      "detailed_metrics": {
+        "has_ambiguity": false,
+        "reason": "Spatial heuristic selection"
+      }
+    }
+  ],
+  "success_rate": 0.75
+}
