@@ -13,12 +13,16 @@ class MockVLMHandler(BaseHTTPRequestHandler):
         """Handle POST requests."""
         parsed_path = urlparse(self.path)
         
+        print(f"📨 POST request to {parsed_path.path}")
+        
         if parsed_path.path in ['/chat', '/generate']:
             try:
                 # Read request data
                 content_length = int(self.headers['Content-Length'])
                 post_data = self.rfile.read(content_length)
                 request_data = json.loads(post_data.decode('utf-8'))
+                
+                print(f"📋 Request data: {request_data}")
                 
                 # Generate simple response
                 response_text = self.generate_response(request_data)
@@ -36,14 +40,46 @@ class MockVLMHandler(BaseHTTPRequestHandler):
                 print(f"📤 Responded to {parsed_path.path}: {response_text}")
                 
             except Exception as e:
-                print(f"❌ Error processing request: {e}")
+                print(f"❌ Error processing POST request: {e}")
+                import traceback
+                traceback.print_exc()
                 self.send_response(500)
+                self.send_header('Content-Type', 'application/json')
                 self.end_headers()
-                self.wfile.write(b'{"error": "Internal server error"}')
+                self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
         else:
             self.send_response(404)
+            self.send_header('Content-Type', 'application/json')
             self.end_headers()
-            self.wfile.write(b'{"error": "Not found"}')
+            self.wfile.write(json.dumps({"error": "Not found"}).encode('utf-8'))
+    
+    def do_GET(self):
+        """Handle GET requests."""
+        parsed_path = urlparse(self.path)
+        
+        print(f"📨 GET request to {parsed_path.path}")
+        
+        if parsed_path.path == '/health':
+            # Health check endpoint
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            response = {"status": "healthy", "server": "simple_mock_vlm"}
+            self.wfile.write(json.dumps(response).encode('utf-8'))
+            print("📤 Health check OK")
+        else:
+            # All other GET requests are not supported
+            print(f"⚠️ GET request to {parsed_path.path} not supported")
+            self.send_response(405)  # Method Not Allowed
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Allow', 'POST')
+            self.end_headers()
+            error_response = {
+                "error": "Method not allowed", 
+                "message": "Use POST for /chat and /generate endpoints",
+                "supported_methods": ["POST"]
+            }
+            self.wfile.write(json.dumps(error_response).encode('utf-8'))
     
     def generate_response(self, request_data):
         """Generate a simple mock response."""
