@@ -161,7 +161,7 @@ def local_model(messages, port):
         return response.json()["output_text"]
 
 def match_item(description, objects,action_space,MODE,match_item_model="default"):
-    if description.startswith("observe") or description.startswith("move forward"):
+    if description.startswith("observe") or description.startswith("move forward") or description.startswith("move back") or description.startswith("end"):
         return None
     target_obj = "No Suitable Object"
     objects_unique = list(OrderedDict.fromkeys(objects))
@@ -181,6 +181,7 @@ def match_item(description, objects,action_space,MODE,match_item_model="default"
     elif MODE=="API":
         if match_item_model=="default":
             print("Please set the API model for the match item.")
+            return None  # Return None explicitly when no model is set
             
         item=""
         for action_name in action_space: 
@@ -257,7 +258,11 @@ def macth_action_item(response, action_space, objects,MODE="LOCAL"):
     else:
         return "response", "error", None
 
-    if raw_action.startswith("end") or raw_action.startswith("observe") or raw_action.startswith("move forward") or raw_action.startswith("error"):
+    # Handle invalid actions by converting to valid ones
+    if raw_action.startswith("move back"):
+        raw_action = "move forward"  # Convert move back to move forward
+        item = None
+    elif raw_action.startswith("end") or raw_action.startswith("observe") or raw_action.startswith("move forward") or raw_action.startswith("error"):
         item = None
     else:
         raw_item = raw_action.split(" ")[-1].strip()
@@ -265,6 +270,9 @@ def macth_action_item(response, action_space, objects,MODE="LOCAL"):
             item = raw_item
         else:
             item = match_item(raw_action.strip(), objects,action_space,MODE)
+            # Handle case where match_item returns None
+            if item is None:
+                item = raw_item  # Fall back to raw item
 
 
     for action_name in action_space:

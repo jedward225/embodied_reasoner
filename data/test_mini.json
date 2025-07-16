@@ -1,0 +1,19 @@
+[
+  {
+    "identity": "test_001",
+    "tasktype": "single_pickup_from_closerep",
+    "scene": "FloorPlan1",
+    "instruction_idx": 0,
+    "taskquery": "Can you grab the Apple from the room?",
+    "taskname": "single_pickup_from_closerep",
+    "target_objects": [
+      "Apple"
+    ],
+    "related_objects": [],
+    "navigable_objects": [
+      "Apple",
+      "Bowl",
+      "Cup"
+    ]
+  }
+]

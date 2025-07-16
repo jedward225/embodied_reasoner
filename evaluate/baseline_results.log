@@ -1,0 +1,314 @@
+evaluate utils:4
+evaluate utils:None
+Namespace(input_path='../data/test_10.json', model_name='Qwen/Qwen2.5-VL-7B-Instruct', batch_size=200, port=10000, cur_count=1, total_count=1)
+--total task count:10
+--cache:0---remaining evaluation tasks:10
+--Current process evaluation data:10
+🌐 Running in API mode
+🔍 DEBUG: test() called with model=Qwen/Qwen2.5-VL-7B-Instruct, test_data={'scene': 'FloorPlan1', 'tasktype': 'single_search', 'instruction_idx': 10, 'taskname': 'Can you identify the Mug in the room, please?', 'task_metadata': {'taskname': 'Can you identify the Mug in the room, please?', 'tasktype': 'single_search', 'metadatapath': 'taskgenerate/kitchens/FloorPlan1/metadata.json', 'actions': [{'action': 'navigate to', 'objectId': 'CounterTop|-01.87|+00.95|-01.21', 'objectType': 'CounterTop', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-01.87|+00.95|-01.21', 'Mug|-01.76|+00.90|-00.62']}, {'action': 'end', 'objectId': '', 'objectType': '', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-01.87|+00.95|-01.21', 'Mug|-01.76|+00.90|-00.62']}], 'totalreward': 2}, 'taskquery': 'Would you mind finding the Mug in the room, please?', 'identity': 10, 'target_objects': ['CounterTop|-01.87|+00.95|-01.21'], 'related_objects': ['Mug|-01.76|+00.90|-00.62'], 'navigable_objects': ['CounterTop']}
+🔍 DEBUG: Starting test processing...
+🔍 DEBUG: instruction_idx = 10
+🔍 DEBUG: Using task_metadata from test_data
+🔍 DEBUG: About to call get_trajectory
+🔍 DEBUG: Starting get_trajectory for task: {'scene': 'FloorPlan1', 'tasktype': 'single_search', 'instruction_idx': 10, 'taskname': 'Can you identify the Mug in the room, please?', 'task_metadata': {'taskname': 'Can you identify the Mug in the room, please?', 'tasktype': 'single_search', 'metadatapath': 'taskgenerate/kitchens/FloorPlan1/metadata.json', 'actions': [{'action': 'navigate to', 'objectId': 'CounterTop|-01.87|+00.95|-01.21', 'objectType': 'CounterTop', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-01.87|+00.95|-01.21', 'Mug|-01.76|+00.90|-00.62']}, {'action': 'end', 'objectId': '', 'objectType': '', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-01.87|+00.95|-01.21', 'Mug|-01.76|+00.90|-00.62']}], 'totalreward': 2}, 'taskquery': 'Would you mind finding the Mug in the room, please?', 'identity': 10, 'target_objects': ['CounterTop|-01.87|+00.95|-01.21'], 'related_objects': ['Mug|-01.76|+00.90|-00.62'], 'navigable_objects': ['CounterTop']}
+🔍 DEBUG: Extracted basic info - scene:FloorPlan1, task_name:Would you mind finding the Mug in the room, please?, index:10
+🔍 DEBUG: Task setup - scene:FloorPlan1, task_name:Would you mind finding the Mug in the room, please?, max_step:22
+******** Task Name: Would you mind finding the Mug in the room, please? *** Max Steps: 22 ********
+******** Task Record: ./data/Qwen_Qwen2.5-VL-7B-Instruct/10_single_search_FloorPlan1_10 ********
+RoctAgent Initialization successful!!!
+🔍 DEBUG: autogn.step_count = 0
+🔍 DEBUG: About to enter main loop - action:init, step_count:0, max_step:22
+🔍 DEBUG: Loop iteration - action:init, item:None, step_count:0
+0 ****** begin exec action: init None ***
+1 ****** end exec action: init None success: True ***
+********* start call Qwen/Qwen2.5-VL-7B-Instruct *********
+save json data to path: ./data/Qwen_Qwen2.5-VL-7B-Instruct/apiRecord.json
+****** content: 
+ <DecisionMaking>navigate to mug</DecisionMaking>
+********* end call Qwen/Qwen2.5-VL-7B-Instruct: 6.26*********
+Please set the API model for the match item.
+🔍 DEBUG: Parsed action - raw_action:navigate to mug, action:navigate to, item:Mug
+🔍 DEBUG: Loop iteration - action:navigate to, item:Mug, step_count:1
+1 ****** begin exec action: navigate to Mug ***
+2 ****** end exec action: navigate to Mug success: False ***
+********* start call Qwen/Qwen2.5-VL-7B-Instruct *********
+save json data to path: ./data/Qwen_Qwen2.5-VL-7B-Instruct/apiRecord.json
+****** content: 
+ <DecisionMaking>navigate to cabinet</DecisionMaking>
+********* end call Qwen/Qwen2.5-VL-7B-Instruct: 6.44*********
+Please set the API model for the match item.
+🔍 DEBUG: Parsed action - raw_action:navigate to cabinet, action:navigate to, item:Cabinet
+🔍 DEBUG: Loop iteration - action:navigate to, item:Cabinet, step_count:2
+2 ****** begin exec action: navigate to Cabinet ***
+设定位置 {'Cabinet|+00.68|+02.02|-02.46': {'agent_teleport_position': {'x': 0.25, 'y': 0.900999128818512, 'z': -1.5}, 'agent_cameraHorizon': 0, 'agent_isstanding': True, 'agent_rotation': {'x': -0.0, 'y': 180.0, 'z': 0.0}}, 'Cabinet|+00.72|+02.02|-02.46': {'agent_teleport_position': {'x': 0.7000000476837158, 'y': 0.900999128818512, 'z': -1.2999999523162842}, 'agent_cameraHorizon': -18.0, 'agent_isstanding': True, 'agent_rotation': {'x': -0.0, 'y': 180.0, 'z': 0.0}}, 'Cabinet|-00.73|+02.02|-02.46': {'agent_teleport_position': {'x': -1.25, 'y': 0.900999128818512, 'z': -1.5}, 'agent_cameraHorizon': 0, 'agent_isstanding': True, 'agent_rotation': {'x': -0.0, 'y': 180.0, 'z': 0.0}}, 'Cabinet|+00.68|+00.50|-02.20': {'agent_teleport_position': {'x': 0.25, 'y': 0.900999128818512, 'z': -1.5}, 'agent_cameraHorizon': 60, 'agent_isstanding': True, 'agent_rotation': {'x': -0.0, 'y': 180.0, 'z': 0.0}}, 'Microwave|-00.24|+01.69|-02.53': {'agent_teleport_position': {'x': -0.25, 'y': 0.900999128818512, 'z': -1.5}, 'agent_cameraHorizon': 0, 'agent_isstanding': True, 'agent_rotation': {'x': -0.0, 'y': 180.0, 'z': 0.0}}, 'Fridge|+01.01|+00.23|+01.92': {'agent_teleport_position': {'x': 0.10000000149011612, 'y': 1.123205542564392, 'z': 1.9000000953674316}, 'agent_cameraHorizon': 33.0, 'agent_isstanding': True, 'agent_rotation': {'x': -0.0, 'y': 90.0, 'z': 0.0}}, 'Shelf|+00.62|+00.24|+00.34': {'agent_teleport_position': {'x': 0.7000000476837158, 'y': 0.9010459184646606, 'z': 0.9000000953674316}, 'agent_cameraHorizon': 60.000003814697266, 'agent_isstanding': False, 'agent_rotation': {'x': -0.0, 'y': 180.0, 'z': 0.0}}, 'CoffeeTable|-01.73|+00.01|+02.36': {'agent_teleport_position': {'x': -1.25, 'y': 0.9010459184646606, 'z': 1.75}, 'agent_cameraHorizon': 53, 'agent_isstanding': False, 'agent_rotation': {'x': 0.0, 'y': 0.0, 'z': 0.0}}, 'Box|+00.96|+00.29|+06.19': {'agent_teleport_position': {'x': 0.10000000149011612, 'y': 0.9070531129837036, 'z': 6.199999809265137}, 'agent_cameraHorizon': 41.000003814697266, 'agent_isstanding': True, 'agent_rotation': {'x': -0.0, 'y': 90.0, 'z': 0.0}}, 'CoffeeTable|+00.41|+00.01|+02.61': {'agent_teleport_position': {'x': -0.3000001907348633, 'y': 0.9070531129837036, 'z': 2.6000001430511475}, 'agent_cameraHorizon': 60.00001525878906, 'agent_isstanding': True, 'agent_rotation': {'x': -0.0, 'y': 90.0, 'z': 0.0}}, 'Shelf|-02.59|+01.53|+03.91': {'agent_teleport_position': {'x': -2.5999999046325684, 'y': 0.9016162753105164, 'z': 3.5}, 'agent_cameraHorizon': 23.000001907348633, 'agent_isstanding': True, 'agent_rotation': {'x': -0.0, 'y': 0.0, 'z': 0.0}}, 'Cabinet|-01.36|+00.43|+02.87': {'agent_teleport_position': {'x': -0.30000001192092896, 'y': 0.9093819856643677, 'z': 1.899999976158142}, 'agent_cameraHorizon': 33.000003814697266, 'agent_isstanding': True, 'agent_rotation': {'x': -0.0, 'y': 0.0, 'z': 0.0}}, 'Cabinet|-00.34|+00.43|+02.87': {'agent_teleport_position': {'x': -0.30000001192092896, 'y': 0.9093819856643677, 'z': 1.899999976158142}, 'agent_cameraHorizon': 33.000003814697266, 'agent_isstanding': True, 'agent_rotation': {'x': -0.0, 'y': 0.0, 'z': 0.0}}, 'Shelf|-01.17|+00.28|+02.16': {'agent_teleport_position': {'x': -1.2000000476837158, 'y': 0.9031611680984497, 'z': 1.2000000476837158}, 'agent_cameraHorizon': 34.999996185302734, 'agent_isstanding': True, 'agent_rotation': {'x': -0.0, 'y': 0.0, 'z': 0.0}}}
+3 ****** end exec action: navigate to Cabinet success: True ***
+********* start call Qwen/Qwen2.5-VL-7B-Instruct *********
+save json data to path: ./data/Qwen_Qwen2.5-VL-7B-Instruct/apiRecord.json
+****** content: 
+ <DecisionMaking>pickup bottle</DecisionMaking>
+********* end call Qwen/Qwen2.5-VL-7B-Instruct: 7.61*********
+Please set the API model for the match item.
+🔍 DEBUG: Parsed action - raw_action:pickup bottle, action:pickup, item:Bottle
+🔍 DEBUG: Loop iteration - action:pickup, item:Bottle, step_count:3
+3 ****** begin exec action: pickup Bottle ***
+4 ****** end exec action: pickup Bottle success: False ***
+********* start call Qwen/Qwen2.5-VL-7B-Instruct *********
+save json data to path: ./data/Qwen_Qwen2.5-VL-7B-Instruct/apiRecord.json
+****** content: 
+ <DecisionMaking>move forward</DecisionMaking>
+********* end call Qwen/Qwen2.5-VL-7B-Instruct: 6.67*********
+🔍 DEBUG: Parsed action - raw_action:move forward, action:move forward, item:None
+🔍 DEBUG: Loop iteration - action:move forward, item:None, step_count:4
+4 ****** begin exec action: move forward None ***
+RocAgent <ai2thor.server.Event at 0x7624101461c0
+    .metadata["lastAction"] = MoveAhead
+    .metadata["lastActionSuccess"] = False
+    .metadata["errorMessage"] = "Stove is blocking Agent 0 from moving by (0.0000, 0.0000, -0.5000).
+    .metadata["actionReturn"] = None
+>
+RocAgent <ai2thor.server.Event at 0x76241087d220
+    .metadata["lastAction"] = RotateLeft
+    .metadata["lastActionSuccess"] = True
+    .metadata["errorMessage"] = "
+    .metadata["actionReturn"] = None
+>
+RocAgent <ai2thor.server.Event at 0x76241087d2b0
+    .metadata["lastAction"] = RotateRight
+    .metadata["lastActionSuccess"] = True
+    .metadata["errorMessage"] = "
+    .metadata["actionReturn"] = None
+>
+RocAgent <ai2thor.server.Event at 0x7624101a4ac0
+    .metadata["lastAction"] = RotateLeft
+    .metadata["lastActionSuccess"] = True
+    .metadata["errorMessage"] = "
+    .metadata["actionReturn"] = None
+>
+5 ****** end exec action: move forward None success: True ***
+********* start call Qwen/Qwen2.5-VL-7B-Instruct *********
+save json data to path: ./data/Qwen_Qwen2.5-VL-7B-Instruct/apiRecord.json
+****** content: 
+ <DecisionMaking>navigate to countertop</DecisionMaking>
+********* end call Qwen/Qwen2.5-VL-7B-Instruct: 9.23*********
+Please set the API model for the match item.
+🔍 DEBUG: Parsed action - raw_action:navigate to countertop, action:navigate to, item:CounterTop
+🔍 DEBUG: Loop iteration - action:navigate to, item:CounterTop, step_count:5
+5 ****** begin exec action: navigate to CounterTop ***
+6 ****** end exec action: navigate to CounterTop success: True ***
+********* start call Qwen/Qwen2.5-VL-7B-Instruct *********
+save json data to path: ./data/Qwen_Qwen2.5-VL-7B-Instruct/apiRecord.json
+****** content: 
+ <DecisionMaking>pickup cup</DecisionMaking>
+********* end call Qwen/Qwen2.5-VL-7B-Instruct: 8.64*********
+Please set the API model for the match item.
+🔍 DEBUG: Parsed action - raw_action:pickup cup, action:pickup, item:Cup
+🔍 DEBUG: Loop iteration - action:pickup, item:Cup, step_count:6
+6 ****** begin exec action: pickup Cup ***
+7 ****** end exec action: pickup Cup success: False ***
+********* start call Qwen/Qwen2.5-VL-7B-Instruct *********
+save json data to path: ./data/Qwen_Qwen2.5-VL-7B-Instruct/apiRecord.json
+****** content: 
+ <DecisionMaking>move forward</DecisionMaking>
+********* end call Qwen/Qwen2.5-VL-7B-Instruct: 10.16*********
+🔍 DEBUG: Parsed action - raw_action:move forward, action:move forward, item:None
+🔍 DEBUG: Loop iteration - action:move forward, item:None, step_count:7
+7 ****** begin exec action: move forward None ***
+RocAgent <ai2thor.server.Event at 0x762410146af0
+    .metadata["lastAction"] = MoveAhead
+    .metadata["lastActionSuccess"] = False
+    .metadata["errorMessage"] = "Dishwasher is blocking Agent 0 from moving by (-0.5000, 0.0000, 0.0000).
+    .metadata["actionReturn"] = None
+>
+RocAgent <ai2thor.server.Event at 0x762410146130
+    .metadata["lastAction"] = RotateLeft
+    .metadata["lastActionSuccess"] = True
+    .metadata["errorMessage"] = "
+    .metadata["actionReturn"] = None
+>
+RocAgent <ai2thor.server.Event at 0x7624108b5100
+    .metadata["lastAction"] = RotateRight
+    .metadata["lastActionSuccess"] = True
+    .metadata["errorMessage"] = "
+    .metadata["actionReturn"] = None
+>
+8 ****** end exec action: move forward None success: True ***
+********* start call Qwen/Qwen2.5-VL-7B-Instruct *********
+save json data to path: ./data/Qwen_Qwen2.5-VL-7B-Instruct/apiRecord.json
+****** content: 
+ <DecisionMaking>navigate to sink</DecisionMaking>
+********* end call Qwen/Qwen2.5-VL-7B-Instruct: 9.81*********
+Please set the API model for the match item.
+🔍 DEBUG: Parsed action - raw_action:navigate to sink, action:navigate to, item:Sink
+🔍 DEBUG: Loop iteration - action:navigate to, item:Sink, step_count:8
+8 ****** begin exec action: navigate to Sink ***
+9 ****** end exec action: navigate to Sink success: False ***
+********* start call Qwen/Qwen2.5-VL-7B-Instruct *********
+save json data to path: ./data/Qwen_Qwen2.5-VL-7B-Instruct/apiRecord.json
+****** content: 
+ <DecisionMaking>move forward</DecisionMaking>
+********* end call Qwen/Qwen2.5-VL-7B-Instruct: 10.14*********
+🔍 DEBUG: Parsed action - raw_action:move forward, action:move forward, item:None
+🔍 DEBUG: Loop iteration - action:move forward, item:None, step_count:9
+9 ****** begin exec action: move forward None ***
+RocAgent <ai2thor.server.Event at 0x7624101aa370
+    .metadata["lastAction"] = MoveAhead
+    .metadata["lastActionSuccess"] = False
+    .metadata["errorMessage"] = "Dishwasher is blocking Agent 0 from moving by (-0.5000, 0.0000, 0.0000).
+    .metadata["actionReturn"] = None
+>
+RocAgent <ai2thor.server.Event at 0x7624101a46d0
+    .metadata["lastAction"] = RotateLeft
+    .metadata["lastActionSuccess"] = True
+    .metadata["errorMessage"] = "
+    .metadata["actionReturn"] = None
+>
+RocAgent <ai2thor.server.Event at 0x7624101a4760
+    .metadata["lastAction"] = RotateRight
+    .metadata["lastActionSuccess"] = True
+    .metadata["errorMessage"] = "
+    .metadata["actionReturn"] = None
+>
+10 ****** end exec action: move forward None success: True ***
+********* start call Qwen/Qwen2.5-VL-7B-Instruct *********
+save json data to path: ./data/Qwen_Qwen2.5-VL-7B-Instruct/apiRecord.json
+****** content: 
+ <DecisionMaking>navigate to counter top</DecisionMaking>
+********* end call Qwen/Qwen2.5-VL-7B-Instruct: 9.42*********
+Please set the API model for the match item.
+********* start call default *********
+Attempt call default 1 failed: 'choices'
+********* start call default *********
+Attempt call default 2 failed: Remote end closed connection without response
+********* start call default *********
+Attempt call default 3 failed: 'choices'
+❌ CRITICAL ERROR in get_trajectory: VLM request failed.
+--task10Track acquisition failed -- emulator /api exception, end the current evaluation task!!!--
+🔍 DEBUG: get_trajectory returned: trajectory=False, messages=False, result_dir=None
+--task10failed--
+🔍 DEBUG: test() called with model=Qwen/Qwen2.5-VL-7B-Instruct, test_data={'scene': 'FloorPlan1', 'tasktype': 'single_search', 'instruction_idx': 9, 'taskname': 'Search the room for the Lettuce.', 'task_metadata': {'taskname': 'Search the room for the Lettuce.', 'tasktype': 'single_search', 'metadatapath': 'taskgenerate/kitchens/FloorPlan1/metadata.json', 'actions': [{'action': 'navigate to', 'objectId': 'CounterTop|-01.87|+00.95|-01.21', 'objectType': 'CounterTop', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-01.87|+00.95|-01.21', 'Lettuce|-01.81|+00.97|-00.94']}, {'action': 'end', 'objectId': '', 'objectType': '', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-01.87|+00.95|-01.21', 'Lettuce|-01.81|+00.97|-00.94']}], 'totalreward': 2}, 'taskquery': 'Can you kindly check the room for the Lettuce?', 'identity': 9, 'target_objects': ['CounterTop|-01.87|+00.95|-01.21'], 'related_objects': ['Lettuce|-01.81|+00.97|-00.94'], 'navigable_objects': ['Fridge', 'GarbageCan', 'CounterTop']}
+🔍 DEBUG: Starting test processing...
+🔍 DEBUG: instruction_idx = 9
+🔍 DEBUG: Using task_metadata from test_data
+🔍 DEBUG: About to call get_trajectory
+🔍 DEBUG: Starting get_trajectory for task: {'scene': 'FloorPlan1', 'tasktype': 'single_search', 'instruction_idx': 9, 'taskname': 'Search the room for the Lettuce.', 'task_metadata': {'taskname': 'Search the room for the Lettuce.', 'tasktype': 'single_search', 'metadatapath': 'taskgenerate/kitchens/FloorPlan1/metadata.json', 'actions': [{'action': 'navigate to', 'objectId': 'CounterTop|-01.87|+00.95|-01.21', 'objectType': 'CounterTop', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-01.87|+00.95|-01.21', 'Lettuce|-01.81|+00.97|-00.94']}, {'action': 'end', 'objectId': '', 'objectType': '', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-01.87|+00.95|-01.21', 'Lettuce|-01.81|+00.97|-00.94']}], 'totalreward': 2}, 'taskquery': 'Can you kindly check the room for the Lettuce?', 'identity': 9, 'target_objects': ['CounterTop|-01.87|+00.95|-01.21'], 'related_objects': ['Lettuce|-01.81|+00.97|-00.94'], 'navigable_objects': ['Fridge', 'GarbageCan', 'CounterTop']}
+🔍 DEBUG: Extracted basic info - scene:FloorPlan1, task_name:Can you kindly check the room for the Lettuce?, index:9
+🔍 DEBUG: Task setup - scene:FloorPlan1, task_name:Can you kindly check the room for the Lettuce?, max_step:22
+******** Task Name: Can you kindly check the room for the Lettuce? *** Max Steps: 22 ********
+******** Task Record: ./data/Qwen_Qwen2.5-VL-7B-Instruct/9_single_search_FloorPlan1_9 ********
+❌ CRITICAL ERROR in get_trajectory: write to closed file
+--task9Track acquisition failed -- emulator /api exception, end the current evaluation task!!!--
+🔍 DEBUG: get_trajectory returned: trajectory=False, messages=False, result_dir=None
+--task9failed--
+🔍 DEBUG: test() called with model=Qwen/Qwen2.5-VL-7B-Instruct, test_data={'scene': 'FloorPlan1', 'tasktype': 'single_search', 'instruction_idx': 9, 'taskname': 'Search the room for the Lettuce.', 'task_metadata': {'taskname': 'Search the room for the Lettuce.', 'tasktype': 'single_search', 'metadatapath': 'taskgenerate/kitchens/FloorPlan1/metadata.json', 'actions': [{'action': 'navigate to', 'objectId': 'CounterTop|-01.87|+00.95|-01.21', 'objectType': 'CounterTop', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-01.87|+00.95|-01.21', 'Lettuce|-01.81|+00.97|-00.94']}, {'action': 'end', 'objectId': '', 'objectType': '', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-01.87|+00.95|-01.21', 'Lettuce|-01.81|+00.97|-00.94']}], 'totalreward': 2}, 'taskquery': 'Would you mind looking around the room for the Lettuce?', 'identity': 8, 'target_objects': ['CounterTop|-01.87|+00.95|-01.21'], 'related_objects': ['Lettuce|-01.81|+00.97|-00.94'], 'navigable_objects': ['CounterTop']}
+🔍 DEBUG: Starting test processing...
+🔍 DEBUG: instruction_idx = 9
+🔍 DEBUG: Using task_metadata from test_data
+🔍 DEBUG: About to call get_trajectory
+🔍 DEBUG: Starting get_trajectory for task: {'scene': 'FloorPlan1', 'tasktype': 'single_search', 'instruction_idx': 9, 'taskname': 'Search the room for the Lettuce.', 'task_metadata': {'taskname': 'Search the room for the Lettuce.', 'tasktype': 'single_search', 'metadatapath': 'taskgenerate/kitchens/FloorPlan1/metadata.json', 'actions': [{'action': 'navigate to', 'objectId': 'CounterTop|-01.87|+00.95|-01.21', 'objectType': 'CounterTop', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-01.87|+00.95|-01.21', 'Lettuce|-01.81|+00.97|-00.94']}, {'action': 'end', 'objectId': '', 'objectType': '', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-01.87|+00.95|-01.21', 'Lettuce|-01.81|+00.97|-00.94']}], 'totalreward': 2}, 'taskquery': 'Would you mind looking around the room for the Lettuce?', 'identity': 8, 'target_objects': ['CounterTop|-01.87|+00.95|-01.21'], 'related_objects': ['Lettuce|-01.81|+00.97|-00.94'], 'navigable_objects': ['CounterTop']}
+🔍 DEBUG: Extracted basic info - scene:FloorPlan1, task_name:Would you mind looking around the room for the Lettuce?, index:8
+🔍 DEBUG: Task setup - scene:FloorPlan1, task_name:Would you mind looking around the room for the Lettuce?, max_step:22
+******** Task Name: Would you mind looking around the room for the Lettuce? *** Max Steps: 22 ********
+******** Task Record: ./data/Qwen_Qwen2.5-VL-7B-Instruct/8_single_search_FloorPlan1_9 ********
+❌ CRITICAL ERROR in get_trajectory: write to closed file
+--task8Track acquisition failed -- emulator /api exception, end the current evaluation task!!!--
+🔍 DEBUG: get_trajectory returned: trajectory=False, messages=False, result_dir=None
+--task8failed--
+🔍 DEBUG: test() called with model=Qwen/Qwen2.5-VL-7B-Instruct, test_data={'scene': 'FloorPlan1', 'tasktype': 'single_search', 'instruction_idx': 9, 'taskname': 'Search the room for the Lettuce.', 'task_metadata': {'taskname': 'Search the room for the Lettuce.', 'tasktype': 'single_search', 'metadatapath': 'taskgenerate/kitchens/FloorPlan1/metadata.json', 'actions': [{'action': 'navigate to', 'objectId': 'CounterTop|-01.87|+00.95|-01.21', 'objectType': 'CounterTop', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-01.87|+00.95|-01.21', 'Lettuce|-01.81|+00.97|-00.94']}, {'action': 'end', 'objectId': '', 'objectType': '', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-01.87|+00.95|-01.21', 'Lettuce|-01.81|+00.97|-00.94']}], 'totalreward': 2}, 'taskquery': 'Could you search the room for the Lettuce, please?', 'identity': 7, 'target_objects': ['CounterTop|-01.87|+00.95|-01.21'], 'related_objects': ['Lettuce|-01.81|+00.97|-00.94'], 'navigable_objects': ['Fridge', 'CounterTop']}
+🔍 DEBUG: Starting test processing...
+🔍 DEBUG: instruction_idx = 9
+🔍 DEBUG: Using task_metadata from test_data
+🔍 DEBUG: About to call get_trajectory
+🔍 DEBUG: Starting get_trajectory for task: {'scene': 'FloorPlan1', 'tasktype': 'single_search', 'instruction_idx': 9, 'taskname': 'Search the room for the Lettuce.', 'task_metadata': {'taskname': 'Search the room for the Lettuce.', 'tasktype': 'single_search', 'metadatapath': 'taskgenerate/kitchens/FloorPlan1/metadata.json', 'actions': [{'action': 'navigate to', 'objectId': 'CounterTop|-01.87|+00.95|-01.21', 'objectType': 'CounterTop', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-01.87|+00.95|-01.21', 'Lettuce|-01.81|+00.97|-00.94']}, {'action': 'end', 'objectId': '', 'objectType': '', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-01.87|+00.95|-01.21', 'Lettuce|-01.81|+00.97|-00.94']}], 'totalreward': 2}, 'taskquery': 'Could you search the room for the Lettuce, please?', 'identity': 7, 'target_objects': ['CounterTop|-01.87|+00.95|-01.21'], 'related_objects': ['Lettuce|-01.81|+00.97|-00.94'], 'navigable_objects': ['Fridge', 'CounterTop']}
+🔍 DEBUG: Extracted basic info - scene:FloorPlan1, task_name:Could you search the room for the Lettuce, please?, index:7
+🔍 DEBUG: Task setup - scene:FloorPlan1, task_name:Could you search the room for the Lettuce, please?, max_step:22
+******** Task Name: Could you search the room for the Lettuce, please? *** Max Steps: 22 ********
+******** Task Record: ./data/Qwen_Qwen2.5-VL-7B-Instruct/7_single_search_FloorPlan1_9 ********
+❌ CRITICAL ERROR in get_trajectory: write to closed file
+--task7Track acquisition failed -- emulator /api exception, end the current evaluation task!!!--
+🔍 DEBUG: get_trajectory returned: trajectory=False, messages=False, result_dir=None
+--task7failed--
+🔍 DEBUG: test() called with model=Qwen/Qwen2.5-VL-7B-Instruct, test_data={'scene': 'FloorPlan1', 'tasktype': 'single_search', 'instruction_idx': 8, 'taskname': 'Find the Kettle in the room.', 'task_metadata': {'taskname': 'Find the Kettle in the room.', 'tasktype': 'single_search', 'metadatapath': 'taskgenerate/kitchens/FloorPlan1/metadata.json', 'actions': [{'action': 'navigate to', 'objectId': 'CounterTop|+00.69|+00.95|-02.48', 'objectType': 'CounterTop', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|+00.69|+00.95|-02.48', 'Kettle|+01.04|+00.90|-02.60']}, {'action': 'end', 'objectId': '', 'objectType': '', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|+00.69|+00.95|-02.48', 'Kettle|+01.04|+00.90|-02.60']}], 'totalreward': 2}, 'taskquery': 'Would you mind searching for the Kettle in the room?', 'identity': 6, 'target_objects': ['CounterTop|+00.69|+00.95|-02.48'], 'related_objects': ['Kettle|+01.04|+00.90|-02.60'], 'navigable_objects': ['Cabinet', 'CounterTop']}
+🔍 DEBUG: Starting test processing...
+🔍 DEBUG: instruction_idx = 8
+🔍 DEBUG: Using task_metadata from test_data
+🔍 DEBUG: About to call get_trajectory
+🔍 DEBUG: Starting get_trajectory for task: {'scene': 'FloorPlan1', 'tasktype': 'single_search', 'instruction_idx': 8, 'taskname': 'Find the Kettle in the room.', 'task_metadata': {'taskname': 'Find the Kettle in the room.', 'tasktype': 'single_search', 'metadatapath': 'taskgenerate/kitchens/FloorPlan1/metadata.json', 'actions': [{'action': 'navigate to', 'objectId': 'CounterTop|+00.69|+00.95|-02.48', 'objectType': 'CounterTop', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|+00.69|+00.95|-02.48', 'Kettle|+01.04|+00.90|-02.60']}, {'action': 'end', 'objectId': '', 'objectType': '', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|+00.69|+00.95|-02.48', 'Kettle|+01.04|+00.90|-02.60']}], 'totalreward': 2}, 'taskquery': 'Would you mind searching for the Kettle in the room?', 'identity': 6, 'target_objects': ['CounterTop|+00.69|+00.95|-02.48'], 'related_objects': ['Kettle|+01.04|+00.90|-02.60'], 'navigable_objects': ['Cabinet', 'CounterTop']}
+🔍 DEBUG: Extracted basic info - scene:FloorPlan1, task_name:Would you mind searching for the Kettle in the room?, index:6
+🔍 DEBUG: Task setup - scene:FloorPlan1, task_name:Would you mind searching for the Kettle in the room?, max_step:22
+******** Task Name: Would you mind searching for the Kettle in the room? *** Max Steps: 22 ********
+******** Task Record: ./data/Qwen_Qwen2.5-VL-7B-Instruct/6_single_search_FloorPlan1_8 ********
+❌ CRITICAL ERROR in get_trajectory: write to closed file
+--task6Track acquisition failed -- emulator /api exception, end the current evaluation task!!!--
+🔍 DEBUG: get_trajectory returned: trajectory=False, messages=False, result_dir=None
+--task6failed--
+🔍 DEBUG: test() called with model=Qwen/Qwen2.5-VL-7B-Instruct, test_data={'scene': 'FloorPlan1', 'tasktype': 'single_search', 'instruction_idx': 8, 'taskname': 'Find the Kettle in the room.', 'task_metadata': {'taskname': 'Find the Kettle in the room.', 'tasktype': 'single_search', 'metadatapath': 'taskgenerate/kitchens/FloorPlan1/metadata.json', 'actions': [{'action': 'navigate to', 'objectId': 'CounterTop|+00.69|+00.95|-02.48', 'objectType': 'CounterTop', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|+00.69|+00.95|-02.48', 'Kettle|+01.04|+00.90|-02.60']}, {'action': 'end', 'objectId': '', 'objectType': '', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|+00.69|+00.95|-02.48', 'Kettle|+01.04|+00.90|-02.60']}], 'totalreward': 2}, 'taskquery': 'Can you locate the Kettle in the room?', 'identity': 5, 'target_objects': ['CounterTop|+00.69|+00.95|-02.48'], 'related_objects': ['Kettle|+01.04|+00.90|-02.60'], 'navigable_objects': ['Cabinet', 'Fridge', 'CounterTop']}
+🔍 DEBUG: Starting test processing...
+🔍 DEBUG: instruction_idx = 8
+🔍 DEBUG: Using task_metadata from test_data
+🔍 DEBUG: About to call get_trajectory
+🔍 DEBUG: Starting get_trajectory for task: {'scene': 'FloorPlan1', 'tasktype': 'single_search', 'instruction_idx': 8, 'taskname': 'Find the Kettle in the room.', 'task_metadata': {'taskname': 'Find the Kettle in the room.', 'tasktype': 'single_search', 'metadatapath': 'taskgenerate/kitchens/FloorPlan1/metadata.json', 'actions': [{'action': 'navigate to', 'objectId': 'CounterTop|+00.69|+00.95|-02.48', 'objectType': 'CounterTop', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|+00.69|+00.95|-02.48', 'Kettle|+01.04|+00.90|-02.60']}, {'action': 'end', 'objectId': '', 'objectType': '', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|+00.69|+00.95|-02.48', 'Kettle|+01.04|+00.90|-02.60']}], 'totalreward': 2}, 'taskquery': 'Can you locate the Kettle in the room?', 'identity': 5, 'target_objects': ['CounterTop|+00.69|+00.95|-02.48'], 'related_objects': ['Kettle|+01.04|+00.90|-02.60'], 'navigable_objects': ['Cabinet', 'Fridge', 'CounterTop']}
+🔍 DEBUG: Extracted basic info - scene:FloorPlan1, task_name:Can you locate the Kettle in the room?, index:5
+🔍 DEBUG: Task setup - scene:FloorPlan1, task_name:Can you locate the Kettle in the room?, max_step:22
+******** Task Name: Can you locate the Kettle in the room? *** Max Steps: 22 ********
+******** Task Record: ./data/Qwen_Qwen2.5-VL-7B-Instruct/5_single_search_FloorPlan1_8 ********
+❌ CRITICAL ERROR in get_trajectory: write to closed file
+--task5Track acquisition failed -- emulator /api exception, end the current evaluation task!!!--
+🔍 DEBUG: get_trajectory returned: trajectory=False, messages=False, result_dir=None
+--task5failed--
+🔍 DEBUG: test() called with model=Qwen/Qwen2.5-VL-7B-Instruct, test_data={'scene': 'FloorPlan1', 'tasktype': 'single_search', 'instruction_idx': 8, 'taskname': 'Find the Kettle in the room.', 'task_metadata': {'taskname': 'Find the Kettle in the room.', 'tasktype': 'single_search', 'metadatapath': 'taskgenerate/kitchens/FloorPlan1/metadata.json', 'actions': [{'action': 'navigate to', 'objectId': 'CounterTop|+00.69|+00.95|-02.48', 'objectType': 'CounterTop', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|+00.69|+00.95|-02.48', 'Kettle|+01.04|+00.90|-02.60']}, {'action': 'end', 'objectId': '', 'objectType': '', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|+00.69|+00.95|-02.48', 'Kettle|+01.04|+00.90|-02.60']}], 'totalreward': 2}, 'taskquery': 'Please look for the Kettle in the room.', 'identity': 4, 'target_objects': ['CounterTop|+00.69|+00.95|-02.48'], 'related_objects': ['Kettle|+01.04|+00.90|-02.60'], 'navigable_objects': ['CounterTop']}
+🔍 DEBUG: Starting test processing...
+🔍 DEBUG: instruction_idx = 8
+🔍 DEBUG: Using task_metadata from test_data
+🔍 DEBUG: About to call get_trajectory
+🔍 DEBUG: Starting get_trajectory for task: {'scene': 'FloorPlan1', 'tasktype': 'single_search', 'instruction_idx': 8, 'taskname': 'Find the Kettle in the room.', 'task_metadata': {'taskname': 'Find the Kettle in the room.', 'tasktype': 'single_search', 'metadatapath': 'taskgenerate/kitchens/FloorPlan1/metadata.json', 'actions': [{'action': 'navigate to', 'objectId': 'CounterTop|+00.69|+00.95|-02.48', 'objectType': 'CounterTop', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|+00.69|+00.95|-02.48', 'Kettle|+01.04|+00.90|-02.60']}, {'action': 'end', 'objectId': '', 'objectType': '', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|+00.69|+00.95|-02.48', 'Kettle|+01.04|+00.90|-02.60']}], 'totalreward': 2}, 'taskquery': 'Please look for the Kettle in the room.', 'identity': 4, 'target_objects': ['CounterTop|+00.69|+00.95|-02.48'], 'related_objects': ['Kettle|+01.04|+00.90|-02.60'], 'navigable_objects': ['CounterTop']}
+🔍 DEBUG: Extracted basic info - scene:FloorPlan1, task_name:Please look for the Kettle in the room., index:4
+🔍 DEBUG: Task setup - scene:FloorPlan1, task_name:Please look for the Kettle in the room., max_step:22
+******** Task Name: Please look for the Kettle in the room. *** Max Steps: 22 ********
+******** Task Record: ./data/Qwen_Qwen2.5-VL-7B-Instruct/4_single_search_FloorPlan1_8 ********
+❌ CRITICAL ERROR in get_trajectory: write to closed file
+--task4Track acquisition failed -- emulator /api exception, end the current evaluation task!!!--
+🔍 DEBUG: get_trajectory returned: trajectory=False, messages=False, result_dir=None
+--task4failed--
+🔍 DEBUG: test() called with model=Qwen/Qwen2.5-VL-7B-Instruct, test_data={'scene': 'FloorPlan1', 'tasktype': 'single_search', 'instruction_idx': 6, 'taskname': 'Look for the CreditCard in the room.', 'task_metadata': {'taskname': 'Look for the CreditCard in the room.', 'tasktype': 'single_search', 'metadatapath': 'taskgenerate/kitchens/FloorPlan1/metadata.json', 'actions': [{'action': 'navigate to', 'objectId': 'CounterTop|-00.08|+01.15|00.00', 'objectType': 'CounterTop', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-00.08|+01.15|00.00', 'CreditCard|-00.46|+01.10|+00.87']}, {'action': 'end', 'objectId': '', 'objectType': '', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-00.08|+01.15|00.00', 'CreditCard|-00.46|+01.10|+00.87']}], 'totalreward': 2}, 'taskquery': 'Please help me find the CreditCard in the room.', 'identity': 3, 'target_objects': ['CounterTop|-00.08|+01.15|00.00'], 'related_objects': ['CreditCard|-00.46|+01.10|+00.87'], 'navigable_objects': ['Cabinet', 'CounterTop']}
+🔍 DEBUG: Starting test processing...
+🔍 DEBUG: instruction_idx = 6
+🔍 DEBUG: Using task_metadata from test_data
+🔍 DEBUG: About to call get_trajectory
+🔍 DEBUG: Starting get_trajectory for task: {'scene': 'FloorPlan1', 'tasktype': 'single_search', 'instruction_idx': 6, 'taskname': 'Look for the CreditCard in the room.', 'task_metadata': {'taskname': 'Look for the CreditCard in the room.', 'tasktype': 'single_search', 'metadatapath': 'taskgenerate/kitchens/FloorPlan1/metadata.json', 'actions': [{'action': 'navigate to', 'objectId': 'CounterTop|-00.08|+01.15|00.00', 'objectType': 'CounterTop', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-00.08|+01.15|00.00', 'CreditCard|-00.46|+01.10|+00.87']}, {'action': 'end', 'objectId': '', 'objectType': '', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-00.08|+01.15|00.00', 'CreditCard|-00.46|+01.10|+00.87']}], 'totalreward': 2}, 'taskquery': 'Please help me find the CreditCard in the room.', 'identity': 3, 'target_objects': ['CounterTop|-00.08|+01.15|00.00'], 'related_objects': ['CreditCard|-00.46|+01.10|+00.87'], 'navigable_objects': ['Cabinet', 'CounterTop']}
+🔍 DEBUG: Extracted basic info - scene:FloorPlan1, task_name:Please help me find the CreditCard in the room., index:3
+🔍 DEBUG: Task setup - scene:FloorPlan1, task_name:Please help me find the CreditCard in the room., max_step:22
+******** Task Name: Please help me find the CreditCard in the room. *** Max Steps: 22 ********
+******** Task Record: ./data/Qwen_Qwen2.5-VL-7B-Instruct/3_single_search_FloorPlan1_6 ********
+❌ CRITICAL ERROR in get_trajectory: write to closed file
+--task3Track acquisition failed -- emulator /api exception, end the current evaluation task!!!--
+🔍 DEBUG: get_trajectory returned: trajectory=False, messages=False, result_dir=None
+--task3failed--
+🔍 DEBUG: test() called with model=Qwen/Qwen2.5-VL-7B-Instruct, test_data={'scene': 'FloorPlan1', 'tasktype': 'single_search', 'instruction_idx': 6, 'taskname': 'Would you mind helping me look for the CreditCard in the room?', 'task_metadata': {'taskname': 'Look for the CreditCard in the room.', 'tasktype': 'single_search', 'metadatapath': 'taskgenerate/kitchens/FloorPlan1/metadata.json', 'actions': [{'action': 'navigate to', 'objectId': 'CounterTop|-00.08|+01.15|00.00', 'objectType': 'CounterTop', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-00.08|+01.15|00.00', 'CreditCard|-00.46|+01.10|+00.87']}, {'action': 'end', 'objectId': '', 'objectType': '', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-00.08|+01.15|00.00', 'CreditCard|-00.46|+01.10|+00.87']}], 'totalreward': 2}, 'taskquery': 'Would you be willing to help me locate the CreditCard in the room?', 'identity': 2, 'target_objects': ['CounterTop|-00.08|+01.15|00.00'], 'related_objects': ['CreditCard|-00.46|+01.10|+00.87'], 'navigable_objects': ['CounterTop']}
+🔍 DEBUG: Starting test processing...
+🔍 DEBUG: instruction_idx = 6
+🔍 DEBUG: Using task_metadata from test_data
+🔍 DEBUG: About to call get_trajectory
+🔍 DEBUG: Starting get_trajectory for task: {'scene': 'FloorPlan1', 'tasktype': 'single_search', 'instruction_idx': 6, 'taskname': 'Would you mind helping me look for the CreditCard in the room?', 'task_metadata': {'taskname': 'Look for the CreditCard in the room.', 'tasktype': 'single_search', 'metadatapath': 'taskgenerate/kitchens/FloorPlan1/metadata.json', 'actions': [{'action': 'navigate to', 'objectId': 'CounterTop|-00.08|+01.15|00.00', 'objectType': 'CounterTop', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-00.08|+01.15|00.00', 'CreditCard|-00.46|+01.10|+00.87']}, {'action': 'end', 'objectId': '', 'objectType': '', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-00.08|+01.15|00.00', 'CreditCard|-00.46|+01.10|+00.87']}], 'totalreward': 2}, 'taskquery': 'Would you be willing to help me locate the CreditCard in the room?', 'identity': 2, 'target_objects': ['CounterTop|-00.08|+01.15|00.00'], 'related_objects': ['CreditCard|-00.46|+01.10|+00.87'], 'navigable_objects': ['CounterTop']}
+🔍 DEBUG: Extracted basic info - scene:FloorPlan1, task_name:Would you be willing to help me locate the CreditCard in the room?, index:2
+🔍 DEBUG: Task setup - scene:FloorPlan1, task_name:Would you be willing to help me locate the CreditCard in the room?, max_step:22
+******** Task Name: Would you be willing to help me locate the CreditCard in the room? *** Max Steps: 22 ********
+******** Task Record: ./data/Qwen_Qwen2.5-VL-7B-Instruct/2_single_search_FloorPlan1_6 ********
+❌ CRITICAL ERROR in get_trajectory: write to closed file
+--task2Track acquisition failed -- emulator /api exception, end the current evaluation task!!!--
+🔍 DEBUG: get_trajectory returned: trajectory=False, messages=False, result_dir=None
+--task2failed--
+🔍 DEBUG: test() called with model=Qwen/Qwen2.5-VL-7B-Instruct, test_data={'scene': 'FloorPlan1', 'tasktype': 'single_search', 'instruction_idx': 6, 'taskname': 'Could you help me look for the CreditCard in the room?', 'task_metadata': {'taskname': 'Look for the CreditCard in the room.', 'tasktype': 'single_search', 'metadatapath': 'taskgenerate/kitchens/FloorPlan1/metadata.json', 'actions': [{'action': 'navigate to', 'objectId': 'CounterTop|-00.08|+01.15|00.00', 'objectType': 'CounterTop', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-00.08|+01.15|00.00', 'CreditCard|-00.46|+01.10|+00.87']}, {'action': 'end', 'objectId': '', 'objectType': '', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-00.08|+01.15|00.00', 'CreditCard|-00.46|+01.10|+00.87']}], 'totalreward': 2}, 'taskquery': 'Could you help me look for the CreditCard in the room?', 'identity': 1, 'target_objects': ['CounterTop|-00.08|+01.15|00.00'], 'related_objects': ['CreditCard|-00.46|+01.10|+00.87'], 'navigable_objects': ['Cabinet', 'GarbageCan', 'CounterTop']}
+🔍 DEBUG: Starting test processing...
+🔍 DEBUG: instruction_idx = 6
+🔍 DEBUG: Using task_metadata from test_data
+🔍 DEBUG: About to call get_trajectory
+🔍 DEBUG: Starting get_trajectory for task: {'scene': 'FloorPlan1', 'tasktype': 'single_search', 'instruction_idx': 6, 'taskname': 'Could you help me look for the CreditCard in the room?', 'task_metadata': {'taskname': 'Look for the CreditCard in the room.', 'tasktype': 'single_search', 'metadatapath': 'taskgenerate/kitchens/FloorPlan1/metadata.json', 'actions': [{'action': 'navigate to', 'objectId': 'CounterTop|-00.08|+01.15|00.00', 'objectType': 'CounterTop', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-00.08|+01.15|00.00', 'CreditCard|-00.46|+01.10|+00.87']}, {'action': 'end', 'objectId': '', 'objectType': '', 'baseaction': '', 'reward': 1, 'relatedObject': ['CounterTop|-00.08|+01.15|00.00', 'CreditCard|-00.46|+01.10|+00.87']}], 'totalreward': 2}, 'taskquery': 'Could you help me look for the CreditCard in the room?', 'identity': 1, 'target_objects': ['CounterTop|-00.08|+01.15|00.00'], 'related_objects': ['CreditCard|-00.46|+01.10|+00.87'], 'navigable_objects': ['Cabinet', 'GarbageCan', 'CounterTop']}
+🔍 DEBUG: Extracted basic info - scene:FloorPlan1, task_name:Could you help me look for the CreditCard in the room?, index:1
+🔍 DEBUG: Task setup - scene:FloorPlan1, task_name:Could you help me look for the CreditCard in the room?, max_step:22
+******** Task Name: Could you help me look for the CreditCard in the room? *** Max Steps: 22 ********
+******** Task Record: ./data/Qwen_Qwen2.5-VL-7B-Instruct/1_single_search_FloorPlan1_6 ********
+❌ CRITICAL ERROR in get_trajectory: write to closed file
+--task1Track acquisition failed -- emulator /api exception, end the current evaluation task!!!--
+🔍 DEBUG: get_trajectory returned: trajectory=False, messages=False, result_dir=None
+--task1failed--
+--The current process evaluation task end--total task count:10successed task count:10

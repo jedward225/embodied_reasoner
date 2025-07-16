@@ -1,0 +1,23 @@
+[
+    {
+        "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+        "messages": [
+            {
+                "role": "system",
+                "content": "You are a helpful assistant."
+            },
+            {
+                "role": "user",
+                "content": "Hello, please respond with 'API test successful'"
+            }
+        ],
+        "response": {
+            "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+            "content": "API test successful",
+            "usage": "CompletionUsage(completion_tokens=4, prompt_tokens=29, total_tokens=33, completion_tokens_details=None, prompt_tokens_details=None)",
+            "choices": "Choice(finish_reason='stop', index=0, logprobs=None, message=ChatCompletionMessage(content='API test successful', refusal=None, role='assistant', annotations=None, audio=None, function_call=None, tool_calls=None, function_calls=None, reasoning_content=''), delta={'role': None, 'content': '', 'tool_calls': None, 'function_calls': None, 'reasoning_content': ''})",
+            "created": 1752592313
+        },
+        "current_time": "2025/07/15/15:11:53"
+    }
+]

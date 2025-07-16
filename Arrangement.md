@@ -4,6 +4,53 @@
 
 本项目旨在解决Embodied-Reasoner中的两个核心导航问题，提供一个渐进式、模块化的实施方案。
 
+## 💡 第一个任务实施指南
+
+### 🎯 目标
+完成**同名物体智能消歧**的基础实现，让系统能够理解"左边的书"等空间描述。
+
+### 📋 具体实施步骤
+
+#### 1️⃣ 环境准备
+```bash
+# 确保环境激活
+conda activate er_eval
+
+# 验证spatial_enhancement模块正常工作
+python test_spatial_enhancement.py
+```
+
+#### 2️⃣ 核心模块理解
+- **`spatial_calculator.py`**: 计算物体间的空间关系（前后左右、远近关系）
+- **`heuristic_detector.py`**: 检测歧义并使用启发式规则解决
+- **`enhanced_agent.py`**: 增强的RocAgent，整合所有空间推理功能
+
+#### 3️⃣ 测试增强功能
+```bash
+# 运行增强版评估
+python evaluate/evaluate_enhanced.py --input_path ./data/test_809.json --model_name test_enhanced
+
+# 对比基础版本
+python evaluate/evaluate.py --input_path ./data/test_809.json --model_name test_baseline
+```
+
+#### 4️⃣ 性能验证
+```bash
+# 使用性能比较工具
+python performance_comparison.py --data_file ./data/test_809.json --model_name Qwen2.5-VL-3B-Instruct
+```
+
+#### 5️⃣ 关键验证点
+- ✅ 多个同类物体场景中能正确选择目标
+- ✅ 空间关系词（左右前后）解析正确
+- ✅ 在无法确定时能生成澄清问题
+- ✅ 失败时能优雅降级到原始方法
+
+#### 6️⃣ 期望改进指标
+- **成功率提升**: 5-15%（特别是多物体场景）
+- **导航精度**: 10-20%提升
+- **用户体验**: 减少多轮交互需求
+
 ### 核心问题
 
 #### 问题1：同名物体歧义
@@ -1491,3 +1538,165 @@ class LightweightEnhancementAdapter:
    - **问题**：算法性能可能需要多轮调优才能达到目标
    - **缓解**：设置分阶段目标，建立持续改进机制
    - **应急预案**：重新评估指标合理性，调整项目范围
+
+---
+
+## 🎯 VLM "vase1" 响应处理实现计划
+
+### 问题分析
+当前状态：VLM接收到"navigate to vase"指令时，在存在多个vase的场景下，会智能地回复"navigate to vase1"，但系统不知道如何处理这个编号响应。
+
+### 解决方案：VLM编号响应解析器
+
+#### 1. 快速修复方案（立即实施）
+```python
+class VLMResponseParser:
+    def __init__(self):
+        self.number_pattern = re.compile(r'(\w+)(\d+)')
+        
+    def parse_numbered_response(self, vlm_response, candidate_objects):
+        """解析VLM的编号响应如'vase1', 'book2'等"""
+        
+        # 提取物体类型和编号
+        match = self.number_pattern.search(vlm_response.lower())
+        if not match:
+            return None
+            
+        object_type = match.group(1)
+        object_number = int(match.group(2))
+        
+        # 从候选对象中找到对应的物体
+        same_type_objects = [obj for obj in candidate_objects 
+                           if object_type in obj['objectType'].lower()]
+        
+        if len(same_type_objects) >= object_number:
+            # 按某种一致的顺序排列候选对象
+            sorted_objects = self.sort_objects_consistently(same_type_objects)
+            return sorted_objects[object_number - 1]  # 1-based indexing
+        
+        return None
+        
+    def sort_objects_consistently(self, objects):
+        """按照一致的顺序排列物体，确保编号稳定"""
+        # 按位置排序：从左到右，从前到后
+        return sorted(objects, key=lambda obj: (
+            obj['position']['x'],  # 左右位置
+            obj['position']['z']   # 前后位置
+        ))
+```
+
+#### 2. 增强的歧义解决流程
+```python
+class EnhancedAmbiguityResolver:
+    def __init__(self):
+        self.response_parser = VLMResponseParser()
+        
+    def resolve_object_reference(self, instruction, candidate_objects, spatial_relations):
+        """增强的物体引用解决"""
+        
+        # 1. 首先尝试VLM智能选择
+        vlm_response = self.call_vlm_for_disambiguation(
+            instruction, candidate_objects, spatial_relations
+        )
+        
+        # 2. 检查VLM是否返回编号响应
+        if self.contains_numbered_reference(vlm_response):
+            selected_object = self.response_parser.parse_numbered_response(
+                vlm_response, candidate_objects
+            )
+            
+            if selected_object:
+                return {
+                    'selected_object_id': selected_object['objectId'],
+                    'confidence': 0.8,  # 编号响应通常比较可靠
+                    'method': 'vlm_numbered_response',
+                    'original_response': vlm_response
+                }
+        
+        # 3. 如果编号解析失败，使用空间推理
+        return self.fallback_to_spatial_reasoning(
+            instruction, candidate_objects, spatial_relations
+        )
+        
+    def contains_numbered_reference(self, response):
+        """检查响应中是否包含编号引用"""
+        return bool(re.search(r'\w+\d+', response))
+```
+
+#### 3. 智能排序策略
+```python
+class SmartObjectSorting:
+    def __init__(self):
+        self.sorting_strategies = {
+            'spatial_left_to_right': self.sort_by_left_to_right,
+            'distance_based': self.sort_by_distance,
+            'visibility_based': self.sort_by_visibility
+        }
+        
+    def sort_by_left_to_right(self, objects, agent_position):
+        """按照从左到右的顺序排列物体"""
+        # 计算相对于agent的左右位置
+        return sorted(objects, key=lambda obj: 
+            self.calculate_relative_x_position(obj, agent_position)
+        )
+        
+    def sort_by_distance(self, objects, agent_position):
+        """按照距离排序，最近的为1"""
+        return sorted(objects, key=lambda obj:
+            self.calculate_distance(obj['position'], agent_position)
+        )
+        
+    def get_optimal_sorting_strategy(self, instruction, objects):
+        """根据指令选择最优排序策略"""
+        if 'left' in instruction.lower() or 'right' in instruction.lower():
+            return 'spatial_left_to_right'
+        elif 'near' in instruction.lower() or 'close' in instruction.lower():
+            return 'distance_based'
+        else:
+            return 'spatial_left_to_right'  # 默认策略
+```
+
+#### 4. 集成到现有系统
+```python
+# 在 spatial_enhancement/enhanced_agent.py 中集成
+class EnhancedRocAgent:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.vlm_response_parser = VLMResponseParser()
+        self.ambiguity_resolver = EnhancedAmbiguityResolver()
+        
+    def resolve_object_ambiguity(self, candidate_ids, instruction):
+        """增强的歧义解决，支持VLM编号响应"""
+        
+        candidate_objects = [self.get_object_by_id(obj_id) 
+                           for obj_id in candidate_ids]
+        
+        # 使用增强的歧义解决器
+        result = self.ambiguity_resolver.resolve_object_reference(
+            instruction, candidate_objects, self.spatial_relations
+        )
+        
+        if result['selected_object_id']:
+            return self.navigate_to_object(result['selected_object_id'])
+        else:
+            return self.handle_unresolved_ambiguity(result)
+```
+
+### 测试计划
+1. **单元测试**：测试VLM响应解析器的各种情况
+2. **集成测试**：使用test_disambiguation.json测试完整流程
+3. **性能测试**：确保新功能不影响系统性能
+4. **边界测试**：测试各种边界情况和异常输入
+
+### 期望效果
+- ✅ 正确处理"navigate to vase1"类型的VLM响应
+- ✅ 在FloorPlan1场景中成功区分多个vase
+- ✅ 提供一致的物体编号系统
+- ✅ 保持向后兼容性和系统稳定性
+
+### 实施时间表
+- **Phase 1**: 实现VLM响应解析器（1天）
+- **Phase 2**: 集成到现有系统（1天）
+- **Phase 3**: 测试和优化（1天）
+
+这个方案将立即解决当前的"vase1"问题，为更复杂的空间推理功能奠定基础。

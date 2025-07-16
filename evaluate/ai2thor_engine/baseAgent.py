@@ -182,7 +182,15 @@ class BaseAgent(ABC):
             kargs.pop("third_party_camera_frames")
         
         if "no_agent_view" not in kargs.keys():
-            image = Image.fromarray(self.controller.last_event.frame)
+            # Handle None frame gracefully
+            if self.controller.last_event.frame is None:
+                print("Warning: Frame is None, creating placeholder image")
+                # Create a placeholder image
+                import numpy as np
+                placeholder_frame = np.zeros((450, 800, 3), dtype=np.uint8)
+                image = Image.fromarray(placeholder_frame)
+            else:
+                image = Image.fromarray(self.controller.last_event.frame)
             # current_path = os.getcwd()
             # full_path = os.path.join(current_path, path)
             # full_path = os.path.normpath(full_path)

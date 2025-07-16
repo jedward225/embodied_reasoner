@@ -1,0 +1,59 @@
+[
+  {
+    "identity": "disambig_001",
+    "tasktype": "single_pickup_from_closerep",
+    "scene": "FloorPlan1",
+    "instruction_idx": 0,
+    "taskquery": "Can you grab the Vase from the room?",
+    "taskname": "single_pickup_ambiguous",
+    "target_objects": [
+      "Vase"
+    ],
+    "related_objects": [],
+    "navigable_objects": [
+      "Vase",
+      "Cabinet",
+      "CounterTop",
+      "Shelf"
+    ],
+    "note": "Test case with ambiguous instruction - should trigger disambiguation"
+  },
+  {
+    "identity": "disambig_002",
+    "tasktype": "single_pickup_from_closerep",
+    "scene": "FloorPlan1",
+    "instruction_idx": 0,
+    "taskquery": "Can you grab the left Vase from the room?",
+    "taskname": "single_pickup_spatial",
+    "target_objects": [
+      "Vase"
+    ],
+    "related_objects": [],
+    "navigable_objects": [
+      "Vase",
+      "Cabinet", 
+      "CounterTop",
+      "Shelf"
+    ],
+    "note": "Test case with spatial instruction - should select the left vase"
+  },
+  {
+    "identity": "disambig_003",
+    "tasktype": "single_pickup_from_closerep",
+    "scene": "FloorPlan1",
+    "instruction_idx": 0,
+    "taskquery": "Can you grab the right Vase from the room?",
+    "taskname": "single_pickup_spatial",
+    "target_objects": [
+      "Vase"
+    ],
+    "related_objects": [],
+    "navigable_objects": [
+      "Vase",
+      "Cabinet",
+      "CounterTop", 
+      "Shelf"
+    ],
+    "note": "Test case with spatial instruction - should select the right vase"
+  }
+]

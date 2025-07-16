@@ -1,0 +1,9 @@
+{
+  "module_imports": true,
+  "evaluate_integration": true,
+  "spatial_calculator": true,
+  "geometric_analyzer": true,
+  "heuristic_detector": true,
+  "controller_cloud": true,
+  "mock_server": false
+}

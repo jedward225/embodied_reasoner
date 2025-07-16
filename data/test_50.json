@@ -1,0 +1,50 @@
+[
+    {
+        "scene": "FloorPlan1",
+        "tasktype": "single_search",
+        "instruction_idx": 6,
+        "taskname": "Could you help me look for the CreditCard in the room?",
+        "task_metadata": {
+            "taskname": "Look for the CreditCard in the room.",
+            "tasktype": "single_search",
+            "metadatapath": "taskgenerate/kitchens/FloorPlan1/metadata.json",
+            "actions": [
+                {
+                    "action": "navigate to",
+                    "objectId": "CounterTop|-00.08|+01.15|00.00",
+                    "objectType": "CounterTop",
+                    "baseaction": "",
+                    "reward": 1,
+                    "relatedObject": [
+                        "CounterTop|-00.08|+01.15|00.00",
+                        "CreditCard|-00.46|+01.10|+00.87"
+                    ]
+                },
+                {
+                    "action": "end",
+                    "objectId": "",
+                    "objectType": "",
+                    "baseaction": "",
+                    "reward": 1,
+                    "relatedObject": [
+                        "CounterTop|-00.08|+01.15|00.00",
+                        "CreditCard|-00.46|+01.10|+00.87"
+                    ]
+                }
+            ],
+            "totalreward": 2
+        },
+        "taskquery": "Could you help me look for the CreditCard in the room?",
+        "identity": 1,
+        "target_objects": [
+            "CounterTop|-00.08|+01.15|00.00"
+        ],
+        "related_objects": [
+            "CreditCard|-00.46|+01.10|+00.87"
+        ],
+        "navigable_objects": [
+            "Cabinet",
+            "GarbageCan",
+            "CounterTop"
+        ]
+    },

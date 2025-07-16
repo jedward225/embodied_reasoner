@@ -1,3 +1,5 @@
 .DS_Store
 *.pyc
 *.pdf
+data/Qwen_Qwen2.5-VL-7B-Instruct/apiRecord.json
+evaluate/data/Qwen_Qwen2.5-VL-7B-Instruct/apiRecord.json

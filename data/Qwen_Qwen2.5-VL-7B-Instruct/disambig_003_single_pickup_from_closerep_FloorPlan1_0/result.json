@@ -1,0 +1,970 @@
+{
+    "identity": "disambig_003",
+    "scene": "FloorPlan1",
+    "tasktype": "single_pickup_from_closerep",
+    "instruction_idx": 0,
+    "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+    "taskname": "single_pickup_spatial",
+    "trajectory": [
+        {
+            "response": "",
+            "action": "init",
+            "object": null,
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 1,
+            "errorInfo": "",
+            "images": "./data/Qwen_Qwen2.5-VL-7B-Instruct/disambig_003_single_pickup_from_closerep_FloorPlan1_0/FloorPlan1_1_init.png"
+        },
+        {
+            "response": "<DecisionMaking>navigate to vase1</DecisionMaking>",
+            "action": "navigate to",
+            "object": "vase1",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"vase1\" is the most relevant item in this room and \"navigate to vase1\". Object: \"vase1\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf2</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf2",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf2\" is the most relevant item in this room and \"navigate to shelf2\". Object: \"shelf2\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf3</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf3",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf3\" is the most relevant item in this room and \"navigate to shelf3\". Object: \"shelf3\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf4</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf4",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf4\" is the most relevant item in this room and \"navigate to shelf4\". Object: \"shelf4\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf5</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf5",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf5\" is the most relevant item in this room and \"navigate to shelf5\". Object: \"shelf5\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf6</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf6",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf6\" is the most relevant item in this room and \"navigate to shelf6\". Object: \"shelf6\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf7</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf7",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf7\" is the most relevant item in this room and \"navigate to shelf7\". Object: \"shelf7\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf8</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf8",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf8\" is the most relevant item in this room and \"navigate to shelf8\". Object: \"shelf8\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf9</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf9",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf9\" is the most relevant item in this room and \"navigate to shelf9\". Object: \"shelf9\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf10</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf10",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf10\" is the most relevant item in this room and \"navigate to shelf10\". Object: \"shelf10\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf11</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf11",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf11\" is the most relevant item in this room and \"navigate to shelf11\". Object: \"shelf11\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf12</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf12",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf12\" is the most relevant item in this room and \"navigate to shelf12\". Object: \"shelf12\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf13</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf13",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf13\" is the most relevant item in this room and \"navigate to shelf13\". Object: \"shelf13\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf14</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf14",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf14\" is the most relevant item in this room and \"navigate to shelf14\". Object: \"shelf14\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf15</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf15",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf15\" is the most relevant item in this room and \"navigate to shelf15\". Object: \"shelf15\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf16</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf16",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf16\" is the most relevant item in this room and \"navigate to shelf16\". Object: \"shelf16\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf17</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf17",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf17\" is the most relevant item in this room and \"navigate to shelf17\". Object: \"shelf17\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf18</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf18",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf18\" is the most relevant item in this room and \"navigate to shelf18\". Object: \"shelf18\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf19</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf19",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf19\" is the most relevant item in this room and \"navigate to shelf19\". Object: \"shelf19\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf20</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf20",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf20\" is the most relevant item in this room and \"navigate to shelf20\". Object: \"shelf20\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf21</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf21",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf21\" is the most relevant item in this room and \"navigate to shelf21\". Object: \"shelf21\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf22</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf22",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf22\" is the most relevant item in this room and \"navigate to shelf22\". Object: \"shelf22\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf23</DecisionMaking>",
+            "action": "navigate to",
+            "object": "shelf23",
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf23\" is the most relevant item in this room and \"navigate to shelf23\". Object: \"shelf23\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to shelf24</DecisionMaking>",
+            "action": "end",
+            "object": null,
+            "legal_locations": [
+                "Vase",
+                "Cabinet",
+                "CounterTop",
+                "Shelf",
+                "Book",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 1,
+            "errorInfo": "",
+            "images": []
+        }
+    ],
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are a robot in given room. You need to complete the tasks according to human instructions. We provide an Available_Actions set and the corresponding explanations for each action. Each step, you should select one action from Available_Actions."
+        },
+        {
+            "role": "user",
+            "content": "<image>This is an image from your frontal perspective. Please select an action from the Available_Actions and fill in the arguments.\nTask: \"Can you grab the right Vase from the room?\"\nAvailable_Actions: {\n\"navigate to <object>\": Move to the object.\n\"pickup <object>\": Pick up the object.\n\"put in <object>\": Put the item in your hand into or on the object.\n\"toggle <object>\": Switch the object on or off.\n\"open <object>\": Open the object (container), and you will see inside the object.\n\"close <object>\": Close the object.\n\"observe\": You can obtain image of your directly rear, left, and right perspectives.\n\"move forward\": Move forward to see more clearly.\n\"end\": If you think you have completed the task, please output \"end\".}\nBefore making each decision, you can think, plan, and even reflect step by step, and then output your final action.\nYour final action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to vase1</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"vase1\" is the most relevant item in this room and \"navigate to vase1\". Object: \"vase1\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf2</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf2\" is the most relevant item in this room and \"navigate to shelf2\". Object: \"shelf2\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf3</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf3\" is the most relevant item in this room and \"navigate to shelf3\". Object: \"shelf3\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf4</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf4\" is the most relevant item in this room and \"navigate to shelf4\". Object: \"shelf4\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf5</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf5\" is the most relevant item in this room and \"navigate to shelf5\". Object: \"shelf5\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf6</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf6\" is the most relevant item in this room and \"navigate to shelf6\". Object: \"shelf6\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf7</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf7\" is the most relevant item in this room and \"navigate to shelf7\". Object: \"shelf7\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf8</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf8\" is the most relevant item in this room and \"navigate to shelf8\". Object: \"shelf8\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf9</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf9\" is the most relevant item in this room and \"navigate to shelf9\". Object: \"shelf9\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf10</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf10\" is the most relevant item in this room and \"navigate to shelf10\". Object: \"shelf10\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf11</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf11\" is the most relevant item in this room and \"navigate to shelf11\". Object: \"shelf11\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf12</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf12\" is the most relevant item in this room and \"navigate to shelf12\". Object: \"shelf12\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf13</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf13\" is the most relevant item in this room and \"navigate to shelf13\". Object: \"shelf13\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf14</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf14\" is the most relevant item in this room and \"navigate to shelf14\". Object: \"shelf14\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf15</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf15\" is the most relevant item in this room and \"navigate to shelf15\". Object: \"shelf15\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf16</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf16\" is the most relevant item in this room and \"navigate to shelf16\". Object: \"shelf16\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf17</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf17\" is the most relevant item in this room and \"navigate to shelf17\". Object: \"shelf17\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf18</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf18\" is the most relevant item in this room and \"navigate to shelf18\". Object: \"shelf18\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf19</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf19\" is the most relevant item in this room and \"navigate to shelf19\". Object: \"shelf19\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf20</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf20\" is the most relevant item in this room and \"navigate to shelf20\". Object: \"shelf20\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf21</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf21\" is the most relevant item in this room and \"navigate to shelf21\". Object: \"shelf21\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf22</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf22\" is the most relevant item in this room and \"navigate to shelf22\". Object: \"shelf22\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf23</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"shelf23\" is the most relevant item in this room and \"navigate to shelf23\". Object: \"shelf23\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to shelf24</DecisionMaking>"
+        }
+    ],
+    "key_actions": [
+        "navigate to Vase",
+        "pick up Vase"
+    ],
+    "metrics": {
+        "success": 1,
+        "efficiency": 0.12,
+        "completeness": 1.0,
+        "key_actions_success": 0
+    },
+    "time": 182,
+    "maxstep": 24
+}

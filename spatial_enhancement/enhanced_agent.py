@@ -26,6 +26,7 @@ except ImportError:
 from .spatial_calculator import SpatialRelationCalculator
 from .heuristic_detector import HeuristicAmbiguityDetector, AmbiguityResult
 from .geometric_analyzer import GeometricAnalyzer, ObservationStrategy
+from .vlm_response_parser import VLMResponseParser, EnhancedAmbiguityResolver
 
 class EnhancedRocAgent(RocAgent):
     """Enhanced RocAgent with advanced spatial reasoning capabilities."""
@@ -70,6 +71,8 @@ class EnhancedRocAgent(RocAgent):
                 self.spatial_calculator = SpatialRelationCalculator(self.eventobject)
                 self.ambiguity_detector = HeuristicAmbiguityDetector(self.spatial_calculator)
                 self.geometric_analyzer = GeometricAnalyzer()
+                self.vlm_response_parser = VLMResponseParser()
+                self.enhanced_ambiguity_resolver = EnhancedAmbiguityResolver(self.vlm_response_parser)
                 self.enhancements_available = True
                 print("[Spatial Enhancement] Spatial enhancement modules loaded successfully")
             except Exception as e:
@@ -348,6 +351,79 @@ class EnhancedRocAgent(RocAgent):
             'geometric_optimizations': 0,
             'fallback_uses': 0
         }
+    
+    def resolve_vlm_response(self, vlm_response: str, candidate_objects: List[Dict[str, Any]], 
+                           instruction: str = "") -> Optional[Dict[str, Any]]:
+        """Resolve VLM response that may contain numbered object references.
+        
+        Args:
+            vlm_response: The VLM response text
+            candidate_objects: List of candidate objects
+            instruction: Original instruction for context
+            
+        Returns:
+            Selected object or None if resolution fails
+        """
+        if not self.enable_enhancements or not self.enhancements_available:
+            return None
+        
+        try:
+            # Get agent position for spatial reasoning
+            agent_position = None
+            if hasattr(self, 'controller') and self.controller:
+                event = self.controller.last_event
+                if event and event.metadata:
+                    agent_position = event.metadata.get('agent', {}).get('position', {})
+            
+            # Use enhanced ambiguity resolver
+            result = self.enhanced_ambiguity_resolver.resolve_object_reference(
+                instruction, candidate_objects, vlm_response, agent_position
+            )
+            
+            if result.get('selected_object_id'):
+                print(f"[Spatial Enhancement] VLM response resolved: {result['method']} - {result['reasoning']}")
+                return result.get('selected_object')
+            
+            return None
+            
+        except Exception as e:
+            print(f"[Spatial Enhancement] VLM response resolution failed: {e}")
+            return None
+    
+    def navigate_with_vlm_response(self, itemtype: str, vlm_response: str, 
+                                 instruction: str = "") -> Tuple[Any, Any, Any]:
+        """Navigate using VLM response that may contain numbered references.
+        
+        Args:
+            itemtype: Type of object to navigate to
+            vlm_response: VLM response text
+            instruction: Original instruction for context
+            
+        Returns:
+            Tuple of (image_fp, legal_navigations, legal_interactions)
+        """
+        if not self.enable_enhancements or not self.enhancements_available:
+            return super().navigate(itemtype)
+        
+        try:
+            # Get candidate objects
+            candidates = self._get_candidate_objects(itemtype)
+            
+            if len(candidates) <= 1:
+                return super().navigate(itemtype)
+            
+            # Try to resolve VLM response
+            selected_object = self.resolve_vlm_response(vlm_response, candidates, instruction)
+            
+            if selected_object:
+                return self._navigate_to_specific_object(selected_object, itemtype)
+            
+            # Fallback to original navigation
+            return super().navigate(itemtype)
+            
+        except Exception as e:
+            print(f"[Spatial Enhancement] VLM navigation failed: {e}")
+            return super().navigate(itemtype)
 
 # Compatibility wrapper for easy replacement
 class LightweightEnhancementAdapter:

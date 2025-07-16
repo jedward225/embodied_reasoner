@@ -1,0 +1,16 @@
+[
+  {
+    "0": {
+      "actions": [
+        {
+          "action": "navigate to",
+          "objectType": "Apple"
+        },
+        {
+          "action": "pick up",
+          "objectType": "Apple"
+        }
+      ]
+    }
+  }
+]

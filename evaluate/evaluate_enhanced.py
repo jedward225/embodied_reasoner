@@ -1,7 +1,18 @@
 import json
 import random
 from ai2thor_engine.EnhancedRocAgent import EnhancedRocAgent as RocAgent
-from utils import *
+
+# Import all functions from the correct utils module to avoid conflicts
+import importlib.util
+import os
+spec = importlib.util.spec_from_file_location("evaluate_utils", os.path.join(os.path.dirname(__file__), "utils.py"))
+evaluate_utils = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(evaluate_utils)
+# Import all functions from utils
+for name in dir(evaluate_utils):
+    if not name.startswith('_'):
+        globals()[name] = getattr(evaluate_utils, name)
+
 from prompt import *
 import argparse
 from tqdm import tqdm
@@ -9,16 +20,19 @@ import os
 import time
 from ai2thor.controller import Controller
 from ai2thor.platform import CloudRendering
-MODE = "LOCAL" # choose ["LOCAL","API"]
+MODE = "API" # choose ["LOCAL","API"]
 PLATFORM_TYPE="GPU" 
 
 MAX_MODEL_INFER_COUNT=3
 def load_data(args):
     cache = {}
-    prefix_path = f"./data/{args.model_name}"
+    # Replace slashes in model name to avoid path issues
+    safe_model_name = args.model_name.replace("/", "_")
+    prefix_path = f"./data/{safe_model_name}"
     if os.path.exists(prefix_path):
         for pre in os.listdir(prefix_path):
-            if "result.json" in os.listdir(os.path.join(prefix_path, pre)):
+            pre_path = os.path.join(prefix_path, pre)
+            if os.path.isdir(pre_path) and "result.json" in os.listdir(pre_path):
                 cache[pre] = 1
     with open(args.input_path) as f:
         data = json.load(f)
@@ -38,8 +52,7 @@ def load_data(args):
     return group_data[args.cur_count-1]
 
 def get_trajectory(controller, task, model, max_step=10, port=-1):
-    # Explicit import to ensure function is available
-    from utils import get_max_steps
+    # All utils functions are now available from the global imports
     
     try:
         scene = task["scene"]
@@ -50,17 +63,24 @@ def get_trajectory(controller, task, model, max_step=10, port=-1):
         else:tasktype=task["tasktype"]
         max_step=get_max_steps(tasktype)
 
-        save_path=f"./data/{model}/{index}_{task['tasktype']}_{scene}_{task['instruction_idx']}"
+        safe_model_name = model.replace("/", "_")
+        save_path=f"./data/{safe_model_name}/{index}_{task['tasktype']}_{scene}_{task['instruction_idx']}"
         
         print(f"******** Task Name: {task_name} *** Max Steps: {max_step} ********")
         print(f"******** Task Record: {save_path} ********")
-        autogn = RocAgent(controller, save_path, scene, visibilityDistance=20, gridSize=0.1, fieldOfView=90, 
-                            target_objects=task["target_objects"],
-                            related_objects=task["related_objects"],
-                            navigable_objects=task["navigable_objects"],
-                            taskid=task["identity"],
-                            platform_type=PLATFORM_TYPE)
-        print("RoctAgent Initialization successful!!!")
+        print(f"[Enhanced] Creating agent with enhancements enabled")
+        try:
+            autogn = RocAgent(controller, save_path, scene, visibilityDistance=20, gridSize=0.1, fieldOfView=90, 
+                                target_objects=task["target_objects"],
+                                related_objects=task["related_objects"],
+                                navigable_objects=task["navigable_objects"],
+                                taskid=task["identity"],
+                                platform_type=PLATFORM_TYPE,
+                                enable_enhancements=True)
+            print("RocAgent Initialization successful!!!")
+        except Exception as e:
+            print(f"[Enhanced] RocAgent initialization failed: {e}")
+            return None, None, None
         objects = autogn.eventobject.get_objects_type(autogn.controller.last_event)
         action, pre_action = "init", "init"
         item, pre_item = None, None
@@ -249,7 +269,8 @@ def get_trajectory(controller, task, model, max_step=10, port=-1):
         return None, None, None
 
 def test(controller, test_data, model="Qwen2.5-VL-3B-Instruct", port=-1):
-    save_path=f"./data/{model}/{test_data['identity']}_{test_data['tasktype']}_{test_data['scene']}_{test_data['instruction_idx']}"
+    safe_model_name = model.replace("/", "_")
+    save_path=f"./data/{safe_model_name}/{test_data['identity']}_{test_data['tasktype']}_{test_data['scene']}_{test_data['instruction_idx']}"
     if os.path.exists(f"{save_path}/result.json"):
         print(f"""--task{test_data["identity"]}It has been evaluated successfully, skip it.---""")
         return
@@ -263,13 +284,14 @@ def test(controller, test_data, model="Qwen2.5-VL-3B-Instruct", port=-1):
     else:
         with open(f"./data/single_search_task_metadata/{test_data['scene']}.json") as f:
             scene_metadata = json.load(f)[0]
-        key_actions = [(a['action']+" "+ a["objectType"]).strip() for a in scene_metadata[id]['actions']]
+        key_actions = [(a['action']+" "+ a["objectType"]).strip() for a in scene_metadata[str(id)]['actions']]
     
     
     trajectory, messages, result_dir = get_trajectory(controller, test_data, model, port=port)
     
     if trajectory is None:
         print(f"--task{test_data['identity']}failed--")
+        print(f"[Enhanced] get_trajectory returned None - debugging needed")
         return
     metric_dic = metric(test_data, trajectory, key_actions)
     test_end_time = time.time()
@@ -293,48 +315,109 @@ def test(controller, test_data, model="Qwen2.5-VL-3B-Instruct", port=-1):
 
 if __name__ == "__main__":
     
+    # Common argument parsing for both modes
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--input_path", type=str, default="./data/test_809.json", help="input file path")
+    parser.add_argument("--model_name", type=str, default="Qwen2.5-VL-3B-Instruct", help="")
+    parser.add_argument("--batch_size", type=int, default=200, help="")
+    parser.add_argument("--port", type=int, default=10000, help="")
+    parser.add_argument("--cur_count", type=int, default=1, help="")
+    parser.add_argument("--total_count", type=int, default=4, help="")
+    args = parser.parse_args()
+    print(args)
+    
+    # Load data (common for both modes)
+    data = load_data(args)
+    success_count = 0
+    
+    # Create controller (common for both modes)
+    controller = Controller(
+        platform=CloudRendering,
+        snapToGrid=False,
+        quality='Medium',
+        agentMode="default",
+        massThreshold=None,
+        scene='FloorPlan1',
+        visibilityDistance=20,
+        gridSize=0.1,
+        renderDepthImage=False,
+        renderInstanceSegmentation=False,
+        width=800,
+        height=450,
+        fieldOfView=90,
+    )
+    
     if MODE=="LOCAL":
-        parser = argparse.ArgumentParser()
-
-        parser.add_argument("--input_path", type=str, default="./data/test_809.json", help="input file path")
-        parser.add_argument("--model_name", type=str, default="Qwen2.5-VL-3B-Instruct", help="")
-        parser.add_argument("--batch_size", type=int, default=200, help="")
-        parser.add_argument("--port", type=int, default=10000, help="")
-        parser.add_argument("--cur_count", type=int, default=1, help="")
-        parser.add_argument("--total_count", type=int, default=4, help="")
-        args = parser.parse_args()
-        print(args)
-        data = load_data(args)
-        success_count = 0
-        # controller = None
-        controller = Controller(
-            platform=CloudRendering,
-            snapToGrid=False,
-            quality='Medium',
-            agentMode="default",
-            massThreshold=None,
-            scene='FloorPlan1',
-            visibilityDistance=20,
-            gridSize=0.1,
-            renderDepthImage=False,
-            renderInstanceSegmentation=False,
-            width=800,
-            height=450,
-            fieldOfView=90,
-        )
+        print("🤖 Running ENHANCED in LOCAL mode")
         for test_data in tqdm(data):
+            # Create fresh controller for each task to avoid crashes
+            controller = Controller(
+                platform=CloudRendering,
+                snapToGrid=False,
+                quality='Medium',
+                agentMode="default",
+                massThreshold=None,
+                scene='FloorPlan1',
+                visibilityDistance=20,
+                gridSize=0.1,
+                renderDepthImage=False,
+                renderInstanceSegmentation=False,
+                width=800,
+                height=450,
+                fieldOfView=90,
+            )
             try:
                 test(controller, test_data, args.model_name, args.port)
                 success_count += 1
             except Exception as e:
                 print(e)
                 print(f"--task{test_data['identity']}failed, End the current evaluation task!!!--")
-                continue
+            finally:
+                # Always stop controller after each task
+                try:
+                    controller.stop()
+                except:
+                    pass
         print(f"--The current process evaluation task end--total task count:{len(data)}successed task count:{success_count}")
     
-    
     elif MODE=="API":
+        print("🌐 Running ENHANCED in API mode")
         match_item_model="Qwen/Qwen2.5-72B-Instruct"
+        
+        # Run evaluation with API mode - create fresh controller for each task
+        for test_data in tqdm(data):
+            # Create fresh controller for each task to avoid crashes
+            controller = Controller(
+                platform=CloudRendering,
+                snapToGrid=False,
+                quality='Medium',
+                agentMode="default",
+                massThreshold=None,
+                scene='FloorPlan1',
+                visibilityDistance=20,
+                gridSize=0.1,
+                renderDepthImage=False,
+                renderInstanceSegmentation=False,
+                width=800,
+                height=450,
+                fieldOfView=90,
+            )
+            try:
+                test(controller, test_data, args.model_name, args.port)
+                success_count += 1
+            except Exception as e:
+                print(f"[Enhanced] Exception in test(): {e}")
+                print(f"[Enhanced] Exception type: {type(e)}")
+                import traceback
+                traceback.print_exc()
+                print(f"--task{test_data['identity']}failed, End the current evaluation task!!!--")
+            finally:
+                # Always stop controller after each task
+                try:
+                    controller.stop()
+                except:
+                    pass
+        print(f"--The current process evaluation task end--total task count:{len(data)}successed task count:{success_count}")
     
     # from concurrent.futures import ThreadPoolExecutor
     # from tqdm import tqdm

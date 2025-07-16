@@ -81,7 +81,8 @@ class VLMAPI:
                             },
                         "current_time": formatted_time
                     }
-                    save_path=f"./data/{self.model}/apiRecord.json"
+                    safe_model_name = self.model.replace("/", "_")
+                    save_path=f"./data/{safe_model_name}/apiRecord.json"
                     save_data_to_json(data_dict, save_path)
                     
                     
@@ -146,7 +147,8 @@ class VLMAPI:
                         "response": data_dict,
                         "current_time": formatted_time
                     }
-                    save_path=f"./data/{self.model}/apiRecord.json"
+                    safe_model_name = self.model.replace("/", "_")
+                    save_path=f"./data/{safe_model_name}/apiRecord.json"
                     save_data_to_json(record, save_path)
 
                     t2=time.time()-t1

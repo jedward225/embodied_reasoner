@@ -9,16 +9,19 @@ import os
 import time
 from ai2thor.controller import Controller
 from ai2thor.platform import CloudRendering
-MODE = "LOCAL" # choose ["LOCAL","API"]
+MODE = "API" # choose ["LOCAL","API"]
 PLATFORM_TYPE="GPU" 
 
 MAX_MODEL_INFER_COUNT=3
 def load_data(args):
     cache = {}
-    prefix_path = f"./data/{args.model_name}"
+    # Replace slashes in model name to avoid path issues
+    safe_model_name = args.model_name.replace("/", "_")
+    prefix_path = f"./data/{safe_model_name}"
     if os.path.exists(prefix_path):
         for pre in os.listdir(prefix_path):
-            if "result.json" in os.listdir(os.path.join(prefix_path, pre)):
+            pre_path = os.path.join(prefix_path, pre)
+            if os.path.isdir(pre_path) and "result.json" in os.listdir(pre_path):
                 cache[pre] = 1
     with open(args.input_path) as f:
         data = json.load(f)
@@ -39,15 +42,19 @@ def load_data(args):
 
 def get_trajectory(controller, task, model, max_step=10, port=-1):
     try:
+        print(f"🔍 DEBUG: Starting get_trajectory for task: {task}")
         scene = task["scene"]
         task_name = task["taskquery"]
         index = task["identity"]
+        print(f"🔍 DEBUG: Extracted basic info - scene:{scene}, task_name:{task_name}, index:{index}")
         if task["tasktype"].startswith("ordered_pickup_two_object_and_put"):
             tasktype="ordered_pickup_two_object_and_put"
         else:tasktype=task["tasktype"]
         max_step=get_max_steps(tasktype)
+        print(f"🔍 DEBUG: Task setup - scene:{scene}, task_name:{task_name}, max_step:{max_step}")
 
-        save_path=f"./data/{model}/{index}_{task['tasktype']}_{scene}_{task['instruction_idx']}"
+        safe_model_name = model.replace("/", "_")
+        save_path=f"./data/{safe_model_name}/{index}_{task['tasktype']}_{scene}_{task['instruction_idx']}"
         
         print(f"******** Task Name: {task_name} *** Max Steps: {max_step} ********")
         print(f"******** Task Record: {save_path} ********")
@@ -58,6 +65,7 @@ def get_trajectory(controller, task, model, max_step=10, port=-1):
                             taskid=task["identity"],
                             platform_type=PLATFORM_TYPE)
         print("RoctAgent Initialization successful!!!")
+        print(f"🔍 DEBUG: autogn.step_count = {autogn.step_count}")
         objects = autogn.eventobject.get_objects_type(autogn.controller.last_event)
         action, pre_action = "init", "init"
         item, pre_item = None, None
@@ -70,7 +78,9 @@ def get_trajectory(controller, task, model, max_step=10, port=-1):
         call_model_count = 0
         con_same_action = 0
         last_step_count = autogn.step_count
+        print(f"🔍 DEBUG: About to enter main loop - action:{action}, step_count:{autogn.step_count}, max_step:{max_step}")
         while action != "end" and autogn.step_count < max_step and call_model_count<MAX_MODEL_INFER_COUNT:
+            print(f"🔍 DEBUG: Loop iteration - action:{action}, item:{item}, step_count:{autogn.step_count}")
             last_step_count = autogn.step_count
             if action==pre_action and item==pre_item:
                 con_same_action+=1
@@ -115,8 +125,14 @@ def get_trajectory(controller, task, model, max_step=10, port=-1):
             else:
             
                 print(autogn.step_count,"****** begin exec action:",action, item ,"***")
-                success, image_fp, legal_locations, legal_objects = autogn.exec(action, item)
-                print(autogn.step_count,"****** end exec action:",action, item ,"***")
+                try:
+                    success, image_fp, legal_locations, legal_objects = autogn.exec(action, item)
+                    print(autogn.step_count,"****** end exec action:",action, item ,"success:",success,"***")
+                except Exception as e:
+                    print(f"❌ DEBUG: exec action failed: {e}")
+                    import traceback
+                    traceback.print_exc()
+                    success, image_fp, legal_locations, legal_objects = False, None, [], []
                 user_text = ""
             
                 if not success or image_fp is None or image_fp == []:
@@ -216,6 +232,7 @@ def get_trajectory(controller, task, model, max_step=10, port=-1):
             else:
                 print(f"******** Action_Execute_Count: {autogn.step_count} *** Call_VLM_Count: {call_model_count} ********")  
             raw_action, action, item = macth_action_item(response, autogn.action_space, objects,MODE)
+            print(f"🔍 DEBUG: Parsed action - raw_action:{raw_action}, action:{action}, item:{item}")
 
             messages.append({"role":"assistant","content":response})
         
@@ -234,7 +251,9 @@ def get_trajectory(controller, task, model, max_step=10, port=-1):
         del autogn
         return trajectory, messages, save_path
     except Exception as e:
-        print(e)
+        print(f"❌ CRITICAL ERROR in get_trajectory: {e}")
+        import traceback
+        traceback.print_exc()
         # Only cleanup autogn if it was successfully initialized
         if 'autogn' in locals():
             try:
@@ -246,24 +265,42 @@ def get_trajectory(controller, task, model, max_step=10, port=-1):
         return None, None, None
 
 def test(controller, test_data, model="Qwen2.5-VL-3B-Instruct", port=-1):
-    save_path=f"./data/{model}/{test_data['identity']}_{test_data['tasktype']}_{test_data['scene']}_{test_data['instruction_idx']}"
+    print(f"🔍 DEBUG: test() called with model={model}, test_data={test_data}")
+    safe_model_name = model.replace("/", "_")
+    save_path=f"./data/{safe_model_name}/{test_data['identity']}_{test_data['tasktype']}_{test_data['scene']}_{test_data['instruction_idx']}"
     if os.path.exists(f"{save_path}/result.json"):
         print(f"""--task{test_data["identity"]}It has been evaluated successfully, skip it.---""")
         return
     
+    print(f"🔍 DEBUG: Starting test processing...")
     test_start_time = time.time()
     id = test_data['instruction_idx']
+    print(f"🔍 DEBUG: instruction_idx = {id}")
+    
     if 'task_metadata' in test_data:
+        print(f"🔍 DEBUG: Using task_metadata from test_data")
         scene_metadata = test_data['task_metadata']
         key_actions = [(a['action']+" "+ a["objectType"]).strip() for a in scene_metadata['actions']]
         
     else:
-        with open(f"./data/single_search_task_metadata/{test_data['scene']}.json") as f:
-            scene_metadata = json.load(f)[0]
-        key_actions = [(a['action']+" "+ a["objectType"]).strip() for a in scene_metadata[id]['actions']]
+        print(f"🔍 DEBUG: Loading metadata from file for scene {test_data['scene']}")
+        try:
+            with open(f"./data/single_search_task_metadata/{test_data['scene']}.json") as f:
+                scene_metadata = json.load(f)[0]
+            print(f"🔍 DEBUG: Loaded metadata: {scene_metadata}")
+            print(f"🔍 DEBUG: Looking for instruction_idx {id} in metadata")
+            key_actions = [(a['action']+" "+ a["objectType"]).strip() for a in scene_metadata[str(id)]['actions']]
+            print(f"🔍 DEBUG: Extracted key_actions: {key_actions}")
+        except Exception as e:
+            print(f"❌ DEBUG: Failed to load metadata: {e}")
+            import traceback
+            traceback.print_exc()
+            raise
     
     
+    print(f"🔍 DEBUG: About to call get_trajectory")
     trajectory, messages, result_dir = get_trajectory(controller, test_data, model, port=port)
+    print(f"🔍 DEBUG: get_trajectory returned: trajectory={trajectory is not None}, messages={messages is not None}, result_dir={result_dir}")
     
     if trajectory is None:
         print(f"--task{test_data['identity']}failed--")
@@ -290,48 +327,90 @@ def test(controller, test_data, model="Qwen2.5-VL-3B-Instruct", port=-1):
 
 if __name__ == "__main__":
     
+    # Common argument parsing for both modes
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--input_path", type=str, default="./data/test_809.json", help="input file path")
+    parser.add_argument("--model_name", type=str, default="Qwen2.5-VL-3B-Instruct", help="")
+    parser.add_argument("--batch_size", type=int, default=200, help="")
+    parser.add_argument("--port", type=int, default=10000, help="")
+    parser.add_argument("--cur_count", type=int, default=1, help="")
+    parser.add_argument("--total_count", type=int, default=4, help="")
+    args = parser.parse_args()
+    print(args)
+    
+    # Load data (common for both modes)
+    data = load_data(args)
+    success_count = 0
+    
+    
     if MODE=="LOCAL":
-        parser = argparse.ArgumentParser()
-
-        parser.add_argument("--input_path", type=str, default="./data/test_809.json", help="input file path")
-        parser.add_argument("--model_name", type=str, default="Qwen2.5-VL-3B-Instruct", help="")
-        parser.add_argument("--batch_size", type=int, default=200, help="")
-        parser.add_argument("--port", type=int, default=10000, help="")
-        parser.add_argument("--cur_count", type=int, default=1, help="")
-        parser.add_argument("--total_count", type=int, default=4, help="")
-        args = parser.parse_args()
-        print(args)
-        data = load_data(args)
-        success_count = 0
-        # controller = None
-        controller = Controller(
-            platform=CloudRendering,
-            snapToGrid=False,
-            quality='Medium',
-            agentMode="default",
-            massThreshold=None,
-            scene='FloorPlan1',
-            visibilityDistance=20,
-            gridSize=0.1,
-            renderDepthImage=False,
-            renderInstanceSegmentation=False,
-            width=800,
-            height=450,
-            fieldOfView=90,
-        )
+        print("🤖 Running in LOCAL mode")
         for test_data in tqdm(data):
+            # Create fresh controller for each task to avoid crashes
+            controller = Controller(
+                platform=CloudRendering,
+                snapToGrid=False,
+                quality='Medium',
+                agentMode="default",
+                massThreshold=None,
+                scene='FloorPlan1',
+                visibilityDistance=20,
+                gridSize=0.1,
+                renderDepthImage=False,
+                renderInstanceSegmentation=False,
+                width=800,
+                height=450,
+                fieldOfView=90,
+            )
             try:
                 test(controller, test_data, args.model_name, args.port)
                 success_count += 1
             except Exception as e:
                 print(e)
                 print(f"--task{test_data['identity']}failed, End the current evaluation task!!!--")
-                continue
+            finally:
+                # Always stop controller after each task
+                try:
+                    controller.stop()
+                except:
+                    pass
         print(f"--The current process evaluation task end--total task count:{len(data)}successed task count:{success_count}")
     
-    
     elif MODE=="API":
+        print("🌐 Running in API mode")
         match_item_model="Qwen/Qwen2.5-72B-Instruct"
+        
+        # Run evaluation with API mode - create fresh controller for each task
+        for test_data in tqdm(data):
+            # Create fresh controller for each task to avoid crashes
+            controller = Controller(
+                platform=CloudRendering,
+                snapToGrid=False,
+                quality='Medium',
+                agentMode="default",
+                massThreshold=None,
+                scene='FloorPlan1',
+                visibilityDistance=20,
+                gridSize=0.1,
+                renderDepthImage=False,
+                renderInstanceSegmentation=False,
+                width=800,
+                height=450,
+                fieldOfView=90,
+            )
+            try:
+                test(controller, test_data, args.model_name, args.port)
+                success_count += 1
+            except Exception as e:
+                print(e)
+                print(f"--task{test_data['identity']}failed, End the current evaluation task!!!--")
+            finally:
+                # Always stop controller after each task
+                try:
+                    controller.stop()
+                except:
+                    pass
+        print(f"--The current process evaluation task end--total task count:{len(data)}successed task count:{success_count}")
     
     # from concurrent.futures import ThreadPoolExecutor
     # from tqdm import tqdm

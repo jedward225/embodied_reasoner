@@ -1,0 +1,16 @@
+[
+  {
+    "0": {
+      "actions": [
+        {
+          "action": "navigate to",
+          "objectType": "Vase"
+        },
+        {
+          "action": "pick up",
+          "objectType": "Vase"
+        }
+      ]
+    }
+  }
+]

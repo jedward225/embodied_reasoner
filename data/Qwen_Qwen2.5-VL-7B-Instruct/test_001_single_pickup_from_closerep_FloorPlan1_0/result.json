@@ -1,0 +1,1196 @@
+{
+    "identity": "test_001",
+    "scene": "FloorPlan1",
+    "tasktype": "single_pickup_from_closerep",
+    "instruction_idx": 0,
+    "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+    "taskname": "single_pickup_from_closerep",
+    "trajectory": [
+        {
+            "response": "",
+            "action": "init",
+            "object": null,
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 1,
+            "errorInfo": "",
+            "images": "./data/Qwen_Qwen2.5-VL-7B-Instruct/test_001_single_pickup_from_closerep_FloorPlan1_0/FloorPlan1_1_init.png"
+        },
+        {
+            "response": "<DecisionMaking>navigate to apple</DecisionMaking>",
+            "action": "navigate to",
+            "object": "apple",
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"apple\" is the most relevant item in this room and \"navigate to apple\". Object: \"apple\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to countertop</DecisionMaking>",
+            "action": "navigate to",
+            "object": "countertop",
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"countertop\" is the most relevant item in this room and \"navigate to countertop\". Object: \"countertop\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>navigate to apple</DecisionMaking>",
+            "action": "navigate to",
+            "object": "apple",
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"apple\" is the most relevant item in this room and \"navigate to apple\". Object: \"apple\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>pickup apple</DecisionMaking>",
+            "action": "pickup",
+            "object": "apple",
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: pickup apple is illegal, Object: apple is currently unavailable for interaction. Possible situations include: apple does not exist in your current view; you are too far away from apple; the apple cannot perform operation pickup.\nYou can try \"move forward\" to approach the target object or \"navigate to <object>\" to reach nearby, larger objects for closer inspection.",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>move forward</DecisionMaking>",
+            "action": "move forward",
+            "object": null,
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge",
+                "GarbageCan"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "GarbageCan",
+                "Cabinet",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 1,
+            "errorInfo": "",
+            "images": "./data/Qwen_Qwen2.5-VL-7B-Instruct/test_001_single_pickup_from_closerep_FloorPlan1_0/FloorPlan1_6_move_forward.png"
+        },
+        {
+            "response": "<DecisionMaking>navigate to countertop</DecisionMaking>",
+            "action": "navigate to",
+            "object": "countertop",
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge",
+                "GarbageCan"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "GarbageCan",
+                "Cabinet",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"countertop\" is the most relevant item in this room and \"navigate to countertop\". Object: \"countertop\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>pickup apple</DecisionMaking>",
+            "action": "pickup",
+            "object": "apple",
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge",
+                "GarbageCan"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Book",
+                "GarbageCan",
+                "Cabinet",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: pickup apple is illegal, Object: apple is currently unavailable for interaction. Possible situations include: apple does not exist in your current view; you are too far away from apple; the apple cannot perform operation pickup.\nYou can try \"move forward\" to approach the target object or \"navigate to <object>\" to reach nearby, larger objects for closer inspection.",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>move forward</DecisionMaking>",
+            "action": "move forward",
+            "object": null,
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge",
+                "GarbageCan",
+                "Shelf",
+                "Drawer",
+                "CoffeeMachine"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Shelf",
+                "Drawer",
+                "Book",
+                "CoffeeMachine",
+                "GarbageCan",
+                "Cabinet",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 1,
+            "errorInfo": "",
+            "images": "./data/Qwen_Qwen2.5-VL-7B-Instruct/test_001_single_pickup_from_closerep_FloorPlan1_0/FloorPlan1_9_move_forward.png"
+        },
+        {
+            "response": "<DecisionMaking>navigate to countertop</DecisionMaking>",
+            "action": "navigate to",
+            "object": "countertop",
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge",
+                "GarbageCan",
+                "Shelf",
+                "Drawer",
+                "CoffeeMachine"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Shelf",
+                "Drawer",
+                "Book",
+                "CoffeeMachine",
+                "GarbageCan",
+                "Cabinet",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"countertop\" is the most relevant item in this room and \"navigate to countertop\". Object: \"countertop\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>pickup apple</DecisionMaking>",
+            "action": "pickup",
+            "object": "apple",
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge",
+                "GarbageCan",
+                "Shelf",
+                "Drawer",
+                "CoffeeMachine"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Shelf",
+                "Drawer",
+                "Book",
+                "CoffeeMachine",
+                "GarbageCan",
+                "Cabinet",
+                "HousePlant",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: pickup apple is illegal, Object: apple is currently unavailable for interaction. Possible situations include: apple does not exist in your current view; you are too far away from apple; the apple cannot perform operation pickup.\nYou can try \"move forward\" to approach the target object or \"navigate to <object>\" to reach nearby, larger objects for closer inspection.",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>move forward</DecisionMaking>",
+            "action": "move forward",
+            "object": null,
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge",
+                "GarbageCan",
+                "Shelf",
+                "Drawer",
+                "CoffeeMachine",
+                "Bread",
+                "Microwave"
+            ],
+            "legal_objects": [
+                "Bread",
+                "CounterTop",
+                "Shelf",
+                "Drawer",
+                "Book",
+                "CoffeeMachine",
+                "Microwave",
+                "GarbageCan",
+                "Cabinet",
+                "HousePlant",
+                "Window",
+                "ShelvingUnit",
+                "Stool",
+                "Fridge"
+            ],
+            "success": 1,
+            "errorInfo": "",
+            "images": "./data/Qwen_Qwen2.5-VL-7B-Instruct/test_001_single_pickup_from_closerep_FloorPlan1_0/FloorPlan1_12_move_forward.png"
+        },
+        {
+            "response": "<DecisionMaking>navigate to countertop</DecisionMaking>",
+            "action": "navigate to",
+            "object": "countertop",
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge",
+                "GarbageCan",
+                "Shelf",
+                "Drawer",
+                "CoffeeMachine",
+                "Bread",
+                "Microwave"
+            ],
+            "legal_objects": [
+                "Bread",
+                "CounterTop",
+                "Shelf",
+                "Drawer",
+                "Book",
+                "CoffeeMachine",
+                "Microwave",
+                "GarbageCan",
+                "Cabinet",
+                "HousePlant",
+                "Window",
+                "ShelvingUnit",
+                "Stool",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"countertop\" is the most relevant item in this room and \"navigate to countertop\". Object: \"countertop\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>pickup apple</DecisionMaking>",
+            "action": "pickup",
+            "object": "apple",
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge",
+                "GarbageCan",
+                "Shelf",
+                "Drawer",
+                "CoffeeMachine",
+                "Bread",
+                "Microwave"
+            ],
+            "legal_objects": [
+                "Bread",
+                "CounterTop",
+                "Shelf",
+                "Drawer",
+                "Book",
+                "CoffeeMachine",
+                "Microwave",
+                "GarbageCan",
+                "Cabinet",
+                "HousePlant",
+                "Window",
+                "ShelvingUnit",
+                "Stool",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: pickup apple is illegal, Object: apple is currently unavailable for interaction. Possible situations include: apple does not exist in your current view; you are too far away from apple; the apple cannot perform operation pickup.\nYou can try \"move forward\" to approach the target object or \"navigate to <object>\" to reach nearby, larger objects for closer inspection.",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>move forward</DecisionMaking>",
+            "action": "move forward",
+            "object": null,
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge",
+                "GarbageCan",
+                "Shelf",
+                "Drawer",
+                "CoffeeMachine",
+                "Bread",
+                "Microwave"
+            ],
+            "legal_objects": [
+                "Apple",
+                "CounterTop",
+                "Bread",
+                "Drawer",
+                "Book",
+                "Microwave",
+                "CoffeeMachine",
+                "Cabinet",
+                "GarbageCan",
+                "HousePlant",
+                "Window",
+                "ShelvingUnit",
+                "Stool",
+                "Fridge"
+            ],
+            "success": 1,
+            "errorInfo": "",
+            "images": "./data/Qwen_Qwen2.5-VL-7B-Instruct/test_001_single_pickup_from_closerep_FloorPlan1_0/FloorPlan1_15_move_forward.png"
+        },
+        {
+            "response": "<DecisionMaking>navigate to countertop</DecisionMaking>",
+            "action": "navigate to",
+            "object": "countertop",
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge",
+                "GarbageCan",
+                "Shelf",
+                "Drawer",
+                "CoffeeMachine",
+                "Bread",
+                "Microwave"
+            ],
+            "legal_objects": [
+                "Apple",
+                "CounterTop",
+                "Bread",
+                "Drawer",
+                "Book",
+                "Microwave",
+                "CoffeeMachine",
+                "Cabinet",
+                "GarbageCan",
+                "HousePlant",
+                "Window",
+                "ShelvingUnit",
+                "Stool",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"countertop\" is the most relevant item in this room and \"navigate to countertop\". Object: \"countertop\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>pickup apple</DecisionMaking>",
+            "action": "pickup",
+            "object": "apple",
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge",
+                "GarbageCan",
+                "Shelf",
+                "Drawer",
+                "CoffeeMachine",
+                "Bread",
+                "Microwave"
+            ],
+            "legal_objects": [
+                "Apple",
+                "CounterTop",
+                "Bread",
+                "Drawer",
+                "Book",
+                "Microwave",
+                "CoffeeMachine",
+                "Cabinet",
+                "GarbageCan",
+                "HousePlant",
+                "Window",
+                "ShelvingUnit",
+                "Stool",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: pickup apple is illegal, Object: apple is currently unavailable for interaction. Possible situations include: apple does not exist in your current view; you are too far away from apple; the apple cannot perform operation pickup.\nYou can try \"move forward\" to approach the target object or \"navigate to <object>\" to reach nearby, larger objects for closer inspection.",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>move forward</DecisionMaking>",
+            "action": "move forward",
+            "object": null,
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge",
+                "GarbageCan",
+                "Shelf",
+                "Drawer",
+                "CoffeeMachine",
+                "Bread",
+                "Microwave",
+                "SinkBasin"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Bread",
+                "Drawer",
+                "SinkBasin",
+                "Book",
+                "CoffeeMachine",
+                "Cabinet",
+                "HousePlant",
+                "GarbageCan",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 1,
+            "errorInfo": "",
+            "images": "./data/Qwen_Qwen2.5-VL-7B-Instruct/test_001_single_pickup_from_closerep_FloorPlan1_0/FloorPlan1_18_move_forward.png"
+        },
+        {
+            "response": "<DecisionMaking>navigate to countertop</DecisionMaking>",
+            "action": "navigate to",
+            "object": "countertop",
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge",
+                "GarbageCan",
+                "Shelf",
+                "Drawer",
+                "CoffeeMachine",
+                "Bread",
+                "Microwave",
+                "SinkBasin"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Bread",
+                "Drawer",
+                "SinkBasin",
+                "Book",
+                "CoffeeMachine",
+                "Cabinet",
+                "HousePlant",
+                "GarbageCan",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"countertop\" is the most relevant item in this room and \"navigate to countertop\". Object: \"countertop\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>pickup apple</DecisionMaking>",
+            "action": "pickup",
+            "object": "apple",
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge",
+                "GarbageCan",
+                "Shelf",
+                "Drawer",
+                "CoffeeMachine",
+                "Bread",
+                "Microwave",
+                "SinkBasin"
+            ],
+            "legal_objects": [
+                "CounterTop",
+                "Bread",
+                "Drawer",
+                "SinkBasin",
+                "Book",
+                "CoffeeMachine",
+                "Cabinet",
+                "HousePlant",
+                "GarbageCan",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: pickup apple is illegal, Object: apple is currently unavailable for interaction. Possible situations include: apple does not exist in your current view; you are too far away from apple; the apple cannot perform operation pickup.\nYou can try \"move forward\" to approach the target object or \"navigate to <object>\" to reach nearby, larger objects for closer inspection.",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>move forward</DecisionMaking>",
+            "action": "move forward",
+            "object": null,
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge",
+                "GarbageCan",
+                "Shelf",
+                "Drawer",
+                "CoffeeMachine",
+                "Bread",
+                "Microwave",
+                "SinkBasin",
+                "CreditCard"
+            ],
+            "legal_objects": [
+                "CreditCard",
+                "Apple",
+                "CounterTop",
+                "Bread",
+                "Drawer",
+                "SinkBasin",
+                "Microwave",
+                "Book",
+                "Cabinet",
+                "CoffeeMachine",
+                "HousePlant",
+                "Window",
+                "Fridge"
+            ],
+            "success": 1,
+            "errorInfo": "",
+            "images": "./data/Qwen_Qwen2.5-VL-7B-Instruct/test_001_single_pickup_from_closerep_FloorPlan1_0/FloorPlan1_21_move_forward.png"
+        },
+        {
+            "response": "<DecisionMaking>navigate to countertop</DecisionMaking>",
+            "action": "navigate to",
+            "object": "countertop",
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge",
+                "GarbageCan",
+                "Shelf",
+                "Drawer",
+                "CoffeeMachine",
+                "Bread",
+                "Microwave",
+                "SinkBasin",
+                "CreditCard"
+            ],
+            "legal_objects": [
+                "CreditCard",
+                "Apple",
+                "CounterTop",
+                "Bread",
+                "Drawer",
+                "SinkBasin",
+                "Microwave",
+                "Book",
+                "Cabinet",
+                "CoffeeMachine",
+                "HousePlant",
+                "Window",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: \"navigate to\" is illegal, \"countertop\" is the most relevant item in this room and \"navigate to countertop\". Object: \"countertop\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\n",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>pickup apple</DecisionMaking>",
+            "action": "pickup",
+            "object": "apple",
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge",
+                "GarbageCan",
+                "Shelf",
+                "Drawer",
+                "CoffeeMachine",
+                "Bread",
+                "Microwave",
+                "SinkBasin",
+                "CreditCard"
+            ],
+            "legal_objects": [
+                "CreditCard",
+                "Apple",
+                "CounterTop",
+                "Bread",
+                "Drawer",
+                "SinkBasin",
+                "Microwave",
+                "Book",
+                "Cabinet",
+                "CoffeeMachine",
+                "HousePlant",
+                "Window",
+                "Fridge"
+            ],
+            "success": 0,
+            "errorInfo": "<|feedback|>Action: pickup apple is illegal, Object: apple is currently unavailable for interaction. Possible situations include: apple does not exist in your current view; you are too far away from apple; the apple cannot perform operation pickup.\nYou can try \"move forward\" to approach the target object or \"navigate to <object>\" to reach nearby, larger objects for closer inspection.",
+            "images": null
+        },
+        {
+            "response": "<DecisionMaking>move forward</DecisionMaking>",
+            "action": "move forward",
+            "object": null,
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge",
+                "GarbageCan",
+                "Shelf",
+                "Drawer",
+                "CoffeeMachine",
+                "Bread",
+                "Microwave",
+                "SinkBasin",
+                "CreditCard"
+            ],
+            "legal_objects": [
+                "CreditCard",
+                "Apple",
+                "Bread",
+                "Drawer",
+                "SinkBasin",
+                "Book",
+                "CounterTop",
+                "Cabinet",
+                "CoffeeMachine",
+                "HousePlant",
+                "Window",
+                "Fridge"
+            ],
+            "success": 1,
+            "errorInfo": "",
+            "images": "./data/Qwen_Qwen2.5-VL-7B-Instruct/test_001_single_pickup_from_closerep_FloorPlan1_0/FloorPlan1_24_move_forward.png"
+        },
+        {
+            "response": "<DecisionMaking>navigate to countertop</DecisionMaking>",
+            "action": "end",
+            "object": null,
+            "legal_locations": [
+                "Apple",
+                "Bowl",
+                "Cup",
+                "CounterTop",
+                "Book",
+                "HousePlant",
+                "Cabinet",
+                "Window",
+                "Stool",
+                "ShelvingUnit",
+                "Fridge",
+                "GarbageCan",
+                "Shelf",
+                "Drawer",
+                "CoffeeMachine",
+                "Bread",
+                "Microwave",
+                "SinkBasin",
+                "CreditCard"
+            ],
+            "legal_objects": [
+                "CreditCard",
+                "Apple",
+                "Bread",
+                "Drawer",
+                "SinkBasin",
+                "Book",
+                "CounterTop",
+                "Cabinet",
+                "CoffeeMachine",
+                "HousePlant",
+                "Window",
+                "Fridge"
+            ],
+            "success": 1,
+            "errorInfo": "",
+            "images": []
+        }
+    ],
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are a robot in given room. You need to complete the tasks according to human instructions. We provide an Available_Actions set and the corresponding explanations for each action. Each step, you should select one action from Available_Actions."
+        },
+        {
+            "role": "user",
+            "content": "<image>This is an image from your frontal perspective. Please select an action from the Available_Actions and fill in the arguments.\nTask: \"Can you grab the Apple from the room?\"\nAvailable_Actions: {\n\"navigate to <object>\": Move to the object.\n\"pickup <object>\": Pick up the object.\n\"put in <object>\": Put the item in your hand into or on the object.\n\"toggle <object>\": Switch the object on or off.\n\"open <object>\": Open the object (container), and you will see inside the object.\n\"close <object>\": Close the object.\n\"observe\": You can obtain image of your directly rear, left, and right perspectives.\n\"move forward\": Move forward to see more clearly.\n\"end\": If you think you have completed the task, please output \"end\".}\nBefore making each decision, you can think, plan, and even reflect step by step, and then output your final action.\nYour final action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to apple</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"apple\" is the most relevant item in this room and \"navigate to apple\". Object: \"apple\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to countertop</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"countertop\" is the most relevant item in this room and \"navigate to countertop\". Object: \"countertop\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to apple</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"apple\" is the most relevant item in this room and \"navigate to apple\". Object: \"apple\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>pickup apple</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: pickup apple is illegal, Object: apple is currently unavailable for interaction. Possible situations include: apple does not exist in your current view; you are too far away from apple; the apple cannot perform operation pickup.\nYou can try \"move forward\" to approach the target object or \"navigate to <object>\" to reach nearby, larger objects for closer inspection.To complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>move forward</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<image>After executing your previous \"move forward\", you get this new image above.\nYou can use \"navigate to <object>\" to reach nearby, larger objects for closer inspection.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to countertop</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"countertop\" is the most relevant item in this room and \"navigate to countertop\". Object: \"countertop\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>pickup apple</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: pickup apple is illegal, Object: apple is currently unavailable for interaction. Possible situations include: apple does not exist in your current view; you are too far away from apple; the apple cannot perform operation pickup.\nYou can try \"move forward\" to approach the target object or \"navigate to <object>\" to reach nearby, larger objects for closer inspection.To complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>move forward</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<image>After executing your previous \"move forward\", you get this new image above.\nYou can use \"navigate to <object>\" to reach nearby, larger objects for closer inspection.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to countertop</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"countertop\" is the most relevant item in this room and \"navigate to countertop\". Object: \"countertop\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>pickup apple</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: pickup apple is illegal, Object: apple is currently unavailable for interaction. Possible situations include: apple does not exist in your current view; you are too far away from apple; the apple cannot perform operation pickup.\nYou can try \"move forward\" to approach the target object or \"navigate to <object>\" to reach nearby, larger objects for closer inspection.To complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>move forward</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<image>After executing your previous \"move forward\", you get this new image above.\nYou can use \"navigate to <object>\" to reach nearby, larger objects for closer inspection.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to countertop</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"countertop\" is the most relevant item in this room and \"navigate to countertop\". Object: \"countertop\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>pickup apple</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: pickup apple is illegal, Object: apple is currently unavailable for interaction. Possible situations include: apple does not exist in your current view; you are too far away from apple; the apple cannot perform operation pickup.\nYou can try \"move forward\" to approach the target object or \"navigate to <object>\" to reach nearby, larger objects for closer inspection.To complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>move forward</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<image>After executing your previous \"move forward\", you get this new image above.\nYou can use \"navigate to <object>\" to reach nearby, larger objects for closer inspection.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to countertop</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"countertop\" is the most relevant item in this room and \"navigate to countertop\". Object: \"countertop\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>pickup apple</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: pickup apple is illegal, Object: apple is currently unavailable for interaction. Possible situations include: apple does not exist in your current view; you are too far away from apple; the apple cannot perform operation pickup.\nYou can try \"move forward\" to approach the target object or \"navigate to <object>\" to reach nearby, larger objects for closer inspection.To complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>move forward</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<image>After executing your previous \"move forward\", you get this new image above.\nYou can use \"navigate to <object>\" to reach nearby, larger objects for closer inspection.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to countertop</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"countertop\" is the most relevant item in this room and \"navigate to countertop\". Object: \"countertop\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>pickup apple</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: pickup apple is illegal, Object: apple is currently unavailable for interaction. Possible situations include: apple does not exist in your current view; you are too far away from apple; the apple cannot perform operation pickup.\nYou can try \"move forward\" to approach the target object or \"navigate to <object>\" to reach nearby, larger objects for closer inspection.To complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>move forward</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<image>After executing your previous \"move forward\", you get this new image above.\nYou can use \"navigate to <object>\" to reach nearby, larger objects for closer inspection.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to countertop</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: \"navigate to\" is illegal, \"countertop\" is the most relevant item in this room and \"navigate to countertop\". Object: \"countertop\" is not currently navigable, you can try \"navigate to <object>\" to reach nearby, larger objects for closer observation.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>pickup apple</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<|feedback|>Action: pickup apple is illegal, Object: apple is currently unavailable for interaction. Possible situations include: apple does not exist in your current view; you are too far away from apple; the apple cannot perform operation pickup.\nYou can try \"move forward\" to approach the target object or \"navigate to <object>\" to reach nearby, larger objects for closer inspection.To complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>move forward</DecisionMaking>"
+        },
+        {
+            "role": "user",
+            "content": "<image>After executing your previous \"move forward\", you get this new image above.\nYou can use \"navigate to <object>\" to reach nearby, larger objects for closer inspection.\nTo complete your task, you can think step by step at first and then output your new action from the Available_Actions.\nYour action must strictly follow format: <DecisionMaking>Your Action</DecisionMaking>, for example, <DecisionMaking>observe</DecisionMaking>."
+        },
+        {
+            "role": "assistant",
+            "content": "<DecisionMaking>navigate to countertop</DecisionMaking>"
+        }
+    ],
+    "key_actions": [
+        "navigate to Apple",
+        "pick up Apple"
+    ],
+    "metrics": {
+        "success": 1,
+        "efficiency": 0.12,
+        "completeness": 1.0,
+        "key_actions_success": 0
+    },
+    "time": 883,
+    "maxstep": 24
+}

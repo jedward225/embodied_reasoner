@@ -225,6 +225,11 @@ class RocAgent(BaseAgent):
         else:
             item = self.objecttype2object[itemtype][0]
         
+        # Check if item is None and handle gracefully
+        if item is None:
+            print(f"[RocAgent] Warning: Could not find item for type {itemtype}")
+            return None, None, None
+        
         # 存储itemtype-非直接导航到的物品
         navigate_obj_type=item["objectType"]
         
