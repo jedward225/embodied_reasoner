@@ -79,6 +79,17 @@ class RocAgent(BaseAgent):
         #     self.objid2position = custom_position_data[self.taskid]
         # self.init_agent_corner()
         
+        # Enhanced navigation configuration
+        self.enable_object_indexing = True      # For object indexing
+        self.enable_dialogue_system = True      # For VLM-based disambiguation
+        self.confidence_gap_threshold = 30      # Auto-select if confidence gap > 30%
+        self.user_response_timeout = 30         # Seconds to wait for user response
+        self.current_task_description = ""      # Set by task context
+        
+        # Initialize object indexing
+        if self.enable_object_indexing:
+            self.init_object_indexing()
+        
     def build_agent(self):
         return None, None, None, None
     
@@ -212,18 +223,52 @@ class RocAgent(BaseAgent):
     def navigate(self, itemtype):
         image_fp, legal_navigations, legal_interactions = None, None, None
     
-        # 如果item是歧义物体
-        if itemtype in self.target_item_type2obj_id:
-            if self.taskid=="84" or self.taskid=="85":
-                if self.controller.last_event.metadata["inventoryObjects"] == []:
-                    obj_id = self.target_item_type2obj_id[itemtype][0]
-                else:
-                    obj_id = self.target_item_type2obj_id[itemtype][1]
-            else:
-                obj_id = self.target_item_type2obj_id[itemtype][0]
-            item = self.eventobject.get_object_by_id(self.controller.last_event, obj_id)
+        # ORIGINAL CODE - PRESERVED FOR A/B TESTING AND COMPARISON
+        # if itemtype in self.target_item_type2obj_id:
+        #     if self.taskid=="84" or self.taskid=="85":
+        #         if self.controller.last_event.metadata["inventoryObjects"] == []:
+        #             obj_id = self.target_item_type2obj_id[itemtype][0]
+        #         else:
+        #             obj_id = self.target_item_type2obj_id[itemtype][1]
+        #     else:
+        #         obj_id = self.target_item_type2obj_id[itemtype][0]
+        #     item = self.eventobject.get_object_by_id(self.controller.last_event, obj_id)
+        # else:
+        #     item = self.objecttype2object[itemtype][0]
+        
+        # NEW ENHANCED CODE WITH DISAMBIGUATION SYSTEM
+        # First check if indexed name is provided (e.g., "Sofa_1")
+        if hasattr(self, 'objecttype2indexed') and itemtype in self.objecttype2indexed:
+            item = self.objecttype2indexed[itemtype]
         else:
-            item = self.objecttype2object[itemtype][0]
+            # Check for multiple objects
+            if itemtype in self.objecttype2object:
+                objects = self.objecttype2object[itemtype]
+                
+                if len(objects) > 1 and hasattr(self, 'enable_dialogue_system') and self.enable_dialogue_system:
+                    # Use VLM-based dialogue for disambiguation
+                    task_description = getattr(self, 'current_task_description', f"Navigate to {itemtype}")
+                    item = self.request_user_disambiguation(itemtype, objects, task_description)
+                elif len(objects) == 1:
+                    item = objects[0]
+                else:
+                    # Fallback to first object if dialogue disabled
+                    item = objects[0]
+                    print(f"Multiple {itemtype} found, using first one (dialogue disabled)")
+            else:
+                # Handle original target_item_type2obj_id logic
+                if itemtype in self.target_item_type2obj_id:
+                    if self.taskid=="84" or self.taskid=="85":
+                        if self.controller.last_event.metadata["inventoryObjects"] == []:
+                            obj_id = self.target_item_type2obj_id[itemtype][0]
+                        else:
+                            obj_id = self.target_item_type2obj_id[itemtype][1]
+                    else:
+                        obj_id = self.target_item_type2obj_id[itemtype][0]
+                    item = self.eventobject.get_object_by_id(self.controller.last_event, obj_id)
+                else:
+                    print(f"Error: No objects of type {itemtype} found")
+                    return None, None, None
         
         # 存储itemtype-非直接导航到的物品
         navigate_obj_type=item["objectType"]
@@ -1020,6 +1065,248 @@ class RocAgent(BaseAgent):
                 
         
         return False, image_fp, legal_locations, legal_objects
+
+    # ======= ENHANCED NAVIGATION: Multi-object Disambiguation System =======
+    
+    def init_object_indexing(self):
+        """Create indexed mapping for duplicate objects"""
+        self.objecttype2indexed = {}
+        
+        for obj_type, objects in self.objecttype2object.items():
+            if len(objects) > 1:
+                # Sort by position for consistent ordering
+                sorted_objs = sorted(objects, key=lambda o: (o['position']['x'], o['position']['z']))
+                for i, obj in enumerate(sorted_objs):
+                    indexed_name = f"{obj_type}_{i+1}"
+                    self.objecttype2indexed[indexed_name] = obj
+                    print(f"Object indexing: {indexed_name} at position ({obj['position']['x']:.2f}, {obj['position']['z']:.2f})")
+    
+    def generate_spatial_description(self, obj, idx, all_objects):
+        """Generate human-readable spatial description"""
+        descriptions = []
+        
+        # Basic position description
+        if obj['position']['x'] < 0:
+            descriptions.append("on the left side of the room")
+        else:
+            descriptions.append("on the right side of the room")
+        
+        # Find nearby landmarks
+        nearby_landmarks = self.find_nearby_landmarks(obj)
+        if nearby_landmarks:
+            descriptions.append(f"near the {nearby_landmarks[0]}")
+        
+        return ", ".join(descriptions)
+    
+    def find_nearby_landmarks(self, obj, radius=2.0):
+        """Find nearby landmark objects"""
+        landmarks = []
+        for other in self.controller.last_event.metadata['objects']:
+            if other['objectType'] in ['Window', 'Door', 'Sink', 'Stove']:
+                distance = ((obj['position']['x'] - other['position']['x'])**2 + 
+                           (obj['position']['z'] - other['position']['z'])**2)**0.5
+                if distance < radius:
+                    landmarks.append(other['objectType'].lower())
+        return landmarks
+    
+    def vlm_call(self, image_path, prompt):
+        """Call VLM for analysis with improved prompting"""
+        try:
+            import sys
+            import os
+            sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+            from VLMCall import VLMAPI
+            
+            vlm = VLMAPI("Qwen/Qwen2-VL-7B-Instruct")
+            
+            # Use simpler prompt to avoid repetition issues
+            simple_prompt = f"""Look at this kitchen scene. Task: {prompt}
+
+What objects do you see? Is there a credit card visible? Answer briefly:
+Objects: [list main objects]
+Credit card visible: Yes/No
+Confidence for task: [0-100]"""
+            
+            img_url = vlm.encode_image_2(image_path)
+            messages = [
+                {"role": "system", "content": "You are analyzing a kitchen scene. Be concise."},
+                {
+                    "role": "user", 
+                    "content": [
+                        {"type": "text", "text": simple_prompt},
+                        {"type": "image_url", "image_url": {"url": img_url}}
+                    ]
+                }
+            ]
+            
+            return vlm.vlm_request(messages)
+            
+        except Exception as e:
+            print(f"VLM call failed: {e}")
+            return "Objects: kitchen items\nCredit card visible: No\nConfidence for task: 25"
+    
+    def analyze_candidates_with_vlm(self, task_description, candidates):
+        """Use VLM to analyze which candidate best matches the task"""
+        analyses = []
+        
+        for i, obj in enumerate(candidates):
+            print(f"🔍 Analyzing candidate {i+1}: {obj['objectType']}_{i+1}")
+            
+            # Navigate to observe this candidate
+            success = self.navigate_to_observe_candidate(obj)
+            if not success:
+                continue
+                
+            # Save observation image
+            image_path = self.save_frame({
+                "analyzing": f"{obj['objectType']}_{i+1}",
+                "task": task_description
+            })
+            
+            # Get VLM analysis
+            vlm_response = self.vlm_call(image_path, task_description)
+            
+            # Extract confidence score
+            confidence = 25  # Default
+            if "Confidence for task:" in vlm_response:
+                try:
+                    confidence_line = vlm_response.split("Confidence for task:")[-1].strip()
+                    confidence = int(confidence_line.split()[0])
+                except:
+                    pass
+            
+            analyses.append({
+                'object': obj,
+                'index': i+1,
+                'analysis': vlm_response,
+                'confidence': confidence,
+                'spatial_desc': self.generate_spatial_description(obj, i, candidates)
+            })
+            
+            print(f"  Confidence: {confidence}%")
+        
+        # Sort by confidence (highest first)
+        return sorted(analyses, key=lambda x: x['confidence'], reverse=True)
+    
+    def navigate_to_observe_candidate(self, obj):
+        """Navigate to observe a candidate object"""
+        try:
+            # Calculate observation position
+            target_position, target_rotation = self.compute_position_8(obj, [])
+            
+            # Teleport to position
+            event = self.action.action_mapping["teleport"](
+                self.controller, 
+                position=target_position, 
+                rotation=target_rotation
+            )
+            self.update_event()
+            
+            return event.metadata['lastActionSuccess']
+        except Exception as e:
+            print(f"Error navigating to candidate: {e}")
+            return False
+    
+    def generate_disambiguation_message(self, task, candidates, analyses):
+        """Generate clear disambiguation message with recommendation"""
+        obj_type = candidates[0]['objectType']
+        best = analyses[0]
+        
+        message = f"""🤖 Agent: I found multiple {obj_type} options and need your help.
+
+Task: {task}
+
+I found {len(candidates)} {obj_type} objects in the room:
+
+"""
+        
+        for analysis in analyses:
+            message += f"Option {analysis['index']}: {obj_type}_{analysis['index']}\n"
+            message += f"  Location: {analysis['spatial_desc']}\n"
+            message += f"  Analysis: {analysis['analysis'].split('Objects:')[1].split('Credit card visible:')[0].strip() if 'Objects:' in analysis['analysis'] else 'kitchen items'}\n"
+            message += f"  Confidence: {analysis['confidence']}%\n\n"
+        
+        message += f"""💡 I recommend Option {best['index']} ({obj_type}_{best['index']}) - it has the highest confidence ({best['confidence']}%).
+
+Please choose:"""
+        
+        for analysis in analyses:
+            message += f"\n  Type '{analysis['index']}' for {obj_type}_{analysis['index']}"
+            
+        message += f"\n  Type 'auto' to use my recommendation"
+        message += f"\n\n⏰ You have {self.user_response_timeout} seconds to respond."
+        
+        return message
+    
+    def get_user_input(self, message, timeout=30):
+        """Get user input with timeout"""
+        print(message)
+        print(f"\n>>> Your choice: ", end='', flush=True)
+        
+        try:
+            import select
+            import sys
+            
+            # Check if input is available within timeout
+            ready, _, _ = select.select([sys.stdin], [], [], timeout)
+            if ready:
+                response = sys.stdin.readline().strip()
+                return response
+            else:
+                print(f"\n⏰ Timeout reached. Using auto-recommendation.")
+                return "auto"
+                
+        except Exception as e:
+            print(f"\n❌ Input error: {e}. Using auto-recommendation.")
+            return "auto"
+    
+    def parse_user_response(self, response, candidates, analyses):
+        """Parse user response with fallback to recommendation"""
+        if not response or response.lower().strip() in ['auto', 'recommend', 'best', '']:
+            print(f"✅ Using recommended option: {analyses[0]['object']['objectType']}_{analyses[0]['index']}")
+            return analyses[0]['object']
+        
+        response_clean = response.lower().strip()
+        
+        # Check for number responses (1, 2, 3, etc.)
+        try:
+            choice_num = int(response_clean)
+            if 1 <= choice_num <= len(candidates):
+                selected = candidates[choice_num - 1]
+                print(f"✅ You selected option {choice_num}: {selected['objectType']}_{choice_num}")
+                return selected
+        except ValueError:
+            pass
+        
+        # If cannot parse, use recommendation
+        print(f"❓ Could not understand '{response}'. Using recommended option.")
+        return analyses[0]['object']
+    
+    def request_user_disambiguation(self, itemtype, candidates, task_description):
+        """Main disambiguation flow"""
+        print(f"\n🎯 Starting disambiguation for {len(candidates)} {itemtype} objects...")
+        
+        # Analyze all candidates with VLM
+        analyses = self.analyze_candidates_with_vlm(task_description, candidates)
+        
+        # Check if confidence gap is large enough to auto-select
+        if len(analyses) > 1 and analyses[0]['confidence'] - analyses[1]['confidence'] > self.confidence_gap_threshold:
+            print(f"🎯 High confidence gap ({analyses[0]['confidence']}% vs {analyses[1]['confidence']}%), auto-selecting {itemtype}_{analyses[0]['index']}")
+            return analyses[0]['object']
+        
+        # Generate and display disambiguation request
+        message = self.generate_disambiguation_message(task_description, candidates, analyses)
+        
+        # Get user response (with timeout)
+        response = self.get_user_input(message, timeout=self.user_response_timeout)
+        
+        # Parse response and return selection
+        selected = self.parse_user_response(response, candidates, analyses)
+        return selected
+    
+    def set_task_description(self, description):
+        """Set current task description for context"""
+        self.current_task_description = description
 
 
 if __name__ == "__main__":

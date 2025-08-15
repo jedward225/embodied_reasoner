@@ -9,7 +9,7 @@ import os
 import time
 from ai2thor.controller import Controller
 from ai2thor.platform import CloudRendering
-MODE = "LOCAL" # choose ["LOCAL","API"]
+MODE = "API" # choose ["LOCAL","API"]
 PLATFORM_TYPE="GPU" 
 
 MAX_MODEL_INFER_COUNT=3
@@ -18,7 +18,8 @@ def load_data(args):
     prefix_path = f"./data/{args.model_name}"
     if os.path.exists(prefix_path):
         for pre in os.listdir(prefix_path):
-            if "result.json" in os.listdir(os.path.join(prefix_path, pre)):
+            pre_path = os.path.join(prefix_path, pre)
+            if os.path.isdir(pre_path) and "result.json" in os.listdir(pre_path):
                 cache[pre] = 1
     with open(args.input_path) as f:
         data = json.load(f)
@@ -325,7 +326,45 @@ if __name__ == "__main__":
     
     
     elif MODE=="API":
-        match_item_model="Qwen/Qwen2.5-72B-Instruct"
+        match_item_model="gpt-4o-mini"  # Use the same model for consistency
+        
+        parser = argparse.ArgumentParser()
+        parser.add_argument("--input_path", type=str, default="./data/test_809.json", help="input file path")
+        parser.add_argument("--model_name", type=str, default="gpt-4o-mini", help="")
+        parser.add_argument("--batch_size", type=int, default=200, help="")
+        parser.add_argument("--port", type=int, default=10000, help="")
+        parser.add_argument("--cur_count", type=int, default=1, help="")
+        parser.add_argument("--total_count", type=int, default=4, help="")
+        args = parser.parse_args()
+        print(args)
+        data = load_data(args)
+        success_count = 0
+        
+        controller = Controller(
+            platform=CloudRendering,
+            snapToGrid=False,
+            quality='Medium',
+            agentMode="default",
+            massThreshold=None,
+            scene='FloorPlan1',
+            visibilityDistance=20,
+            gridSize=0.1,
+            renderDepthImage=False,
+            renderInstanceSegmentation=False,
+            width=800,
+            height=450,
+            fieldOfView=90,
+        )
+        
+        for test_data in tqdm(data):
+            try:
+                test(controller, test_data, args.model_name, args.port)
+                success_count += 1
+            except Exception as e:
+                print(e)
+                print(f"--task{test_data['identity']}failed, End the current evaluation task!!!--")
+                continue
+        print(f"--The current process evaluation task end--total task count:{len(data)}successed task count:{success_count}")
     
     # from concurrent.futures import ThreadPoolExecutor
     # from tqdm import tqdm

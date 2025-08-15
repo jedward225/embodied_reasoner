@@ -1,2 +1,4 @@
 .DS_Store
 *.pyc
+evaluate/VLMCallapi_keys.py
+data/

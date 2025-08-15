@@ -181,6 +181,7 @@ def match_item(description, objects,action_space,MODE,match_item_model="default"
     elif MODE=="API":
         if match_item_model=="default":
             print("Please set the API model for the match item.")
+            match_item_model = "gpt-4o-mini"  # Default to gpt-4o-mini if not specified
             
         item=""
         for action_name in action_space: 
