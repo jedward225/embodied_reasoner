@@ -43,7 +43,9 @@ def analyze_candidates_with_vlm(self, task_description, candidates)
 def vlm_call(self, image_path, prompt)
 ```
 - **功能**：使用视觉大模型分析候选对象，生成置信度评分
+- **使用模型**：`Qwen/Qwen2-VL-7B-Instruct` (通过ModelScope API)
 - **API集成**：支持ModelScope和OpenAI两种VLM服务
+- **图像预处理**：自动调整为400x225分辨率，Base64编码传输
 - **错误处理**：优雅处理图像缺失和网络失败情况
 
 #### 导航观察模块
@@ -210,6 +212,22 @@ python evaluate.py --input_path ../data/test_809.json --model_name "gpt-4o-mini"
 
 ## 📌 置信度计算机制详解
 
+### VLM分析流程
+1. **导航观察**：智能体依次导航到每个候选对象附近
+2. **图像采集**：拍摄当前视角截图（400x225分辨率）
+3. **VLM分析**：调用`Qwen/Qwen2-VL-7B-Instruct`模型进行视觉分析
+4. **置信度提取**：从VLM响应中解析数值置信度
+
+### VLM提示词模板
+```
+Look at this kitchen scene. Task: [任务描述]
+
+What objects do you see? Is there a credit card visible? Answer briefly:
+Objects: [list main objects]
+Credit card visible: Yes/No
+Confidence for task: [0-100]
+```
+
 ### VLM响应格式
 ```
 Objects: [list of visible objects]
@@ -264,6 +282,25 @@ local variable 'autogn' referenced before assignment
   4. 展示对话，用户选择CounterTop_2
   5. 成功完成土豆放入冰箱任务
 - **意义**：证明了用户选择机制的实际价值
+
+### VLM分析实例
+```
+🎯 Starting disambiguation for 3 Shelf objects...
+🔍 Analyzing candidate 1: Shelf_1
+  VLM Response: Objects: stove, counter, floor, wall, chair
+                Credit card visible: No
+                Confidence: 85%
+🔍 Analyzing candidate 2: Shelf_2
+  VLM Response: Objects: stove, counter, floor, wall, chair  
+                Credit card visible: No
+                Confidence: 85%
+🔍 Analyzing candidate 3: Shelf_3
+  VLM Response: Objects: stove, counter, floor, wall, chair
+                Credit card visible: No
+                Confidence: 85%
+
+Decision: 置信度差距 = 0% (< 30%), 触发用户选择对话
+```
 
 ## 🏆 项目总结
 

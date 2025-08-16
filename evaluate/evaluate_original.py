@@ -24,19 +24,6 @@ def load_data(args):
     with open(args.input_path) as f:
         data = json.load(f)
     
-    # 如果指定了task_ids，按数组索引加载这些任务
-    if hasattr(args, 'task_ids') and args.task_ids:
-        task_indices = [int(id.strip()) for id in args.task_ids.split(',')]
-        filtered_data = []
-        for idx in task_indices:
-            if 0 <= idx < len(data):
-                filtered_data.append(data[idx])
-            else:
-                print(f"--Warning: Task index {idx} out of range (0-{len(data)-1})")
-        data = filtered_data
-        print(f"--Loading tasks by array indices: {task_indices}")
-        print(f"--Found {len(data)} valid tasks")
-    
     print(f"--total task count:{len(data)}")
     last_data = []
     for line in data:
@@ -52,7 +39,6 @@ def load_data(args):
     return group_data[args.cur_count-1]
 
 def get_trajectory(controller, task, model, max_step=10, port=-1):
-    autogn = None  # 初始化为None，避免异常处理中的未定义错误
     try:
         scene = task["scene"]
         task_name = task["taskquery"]
@@ -250,14 +236,9 @@ def get_trajectory(controller, task, model, max_step=10, port=-1):
         return trajectory, messages, save_path
     except Exception as e:
         print(e)
-        if autogn is not None:
-            try:
-                autogn.controller.stop()
-                del autogn
-            except:
-                pass  # 如果清理失败，继续执行
+        autogn.controller.stop()
+        del autogn
         print(f"--task{task['identity']}Track acquisition failed -- emulator /api exception, end the current evaluation task!!!--")
-        return None, None, None
 
 def test(controller, test_data, model="Qwen2.5-VL-3B-Instruct", port=-1):
     save_path=f"./data/{model}/{test_data['identity']}_{test_data['tasktype']}_{test_data['scene']}_{test_data['instruction_idx']}"
@@ -354,7 +335,6 @@ if __name__ == "__main__":
         parser.add_argument("--port", type=int, default=10000, help="")
         parser.add_argument("--cur_count", type=int, default=1, help="")
         parser.add_argument("--total_count", type=int, default=4, help="")
-        parser.add_argument("--task_ids", type=str, default=None, help="Comma-separated task array indices to run (e.g., '0,1,2' for first 3 tasks)")
         args = parser.parse_args()
         print(args)
         data = load_data(args)

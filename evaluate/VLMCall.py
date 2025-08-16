@@ -52,7 +52,11 @@ class VLMAPI:
                     print(f"********* start call {self.model} *********")
                     
                     api_key = random.choice(api_keys)
-                    client = OpenAI(api_key=api_key)
+                    # 钱多多API平台配置
+                    client = OpenAI(
+                        api_key=api_key,
+                        base_url="https://api2.aigcbest.top/v1"  # 钱多多API端点
+                    )
                     
                     outputs = client.chat.completions.create(
                         model=self.model,

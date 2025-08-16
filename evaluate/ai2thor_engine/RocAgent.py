@@ -1171,7 +1171,10 @@ Confidence for task: [0-100]"""
             if "Confidence for task:" in vlm_response:
                 try:
                     confidence_line = vlm_response.split("Confidence for task:")[-1].strip()
-                    confidence = int(confidence_line.split()[0])
+                    confidence_str = confidence_line.split()[0]
+                    # Remove % symbol if present
+                    confidence_str = confidence_str.rstrip('%')
+                    confidence = int(confidence_str)
                 except:
                     pass
             
