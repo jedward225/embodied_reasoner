@@ -101,7 +101,8 @@ def get_trajectory(controller, task, model, max_step=10, port=-1):
                         "images": []
                     }
                     trajectory.append(dic)
-                    autogn.controller.stop()
+                    # Don't stop the controller here as it's shared between tasks
+                    # autogn.controller.stop()  # Commented out to fix multi-task testing
                     result_dir = autogn.result_dir
                     del autogn
                     return trajectory, messages, result_dir
@@ -245,14 +246,16 @@ def get_trajectory(controller, task, model, max_step=10, port=-1):
             "images": []
         }
         trajectory.append(dic)
-        autogn.controller.stop()
+        # Don't stop the controller here as it's shared between tasks
+        # autogn.controller.stop()  # Commented out to fix multi-task testing
         del autogn
         return trajectory, messages, save_path
     except Exception as e:
         print(e)
         if autogn is not None:
             try:
-                autogn.controller.stop()
+                # Don't stop the controller here as it's shared between tasks
+                # autogn.controller.stop()  # Commented out to fix multi-task testing
                 del autogn
             except:
                 pass  # 如果清理失败，继续执行
@@ -349,6 +352,8 @@ if __name__ == "__main__":
                 print(f"--task{test_data['identity']}failed, End the current evaluation task!!!--")
                 continue
         print(f"--The current process evaluation task end--total task count:{len(data)}successed task count:{success_count}")
+        # Stop controller after all tasks are completed
+        controller.stop()
     
     
     elif MODE=="API":
@@ -399,6 +404,8 @@ if __name__ == "__main__":
                 print(f"--task{test_data['identity']}failed, End the current evaluation task!!!--")
                 continue
         print(f"--The current process evaluation task end--total task count:{len(data)}successed task count:{success_count}")
+        # Stop controller after all tasks are completed
+        controller.stop()
     
     # from concurrent.futures import ThreadPoolExecutor
     # from tqdm import tqdm
