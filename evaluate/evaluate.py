@@ -335,8 +335,15 @@ if __name__ == "__main__":
         )
         for test_data in tqdm(data):
             try:
+                # 检查任务执行前的result.json是否存在
+                result_file = f"./data/{args.model_name}/{test_data['identity']}_{test_data['tasktype']}_{test_data['scene']}_{test_data['instruction_idx']}/result.json"
+                existed_before = os.path.exists(result_file)
+                
                 test(controller, test_data, args.model_name, args.port)
-                success_count += 1
+                
+                # 只有新生成了result.json才算成功
+                if os.path.exists(result_file) and not existed_before:
+                    success_count += 1
             except Exception as e:
                 print(e)
                 print(f"--task{test_data['identity']}failed, End the current evaluation task!!!--")
@@ -378,8 +385,15 @@ if __name__ == "__main__":
         
         for test_data in tqdm(data):
             try:
+                # 检查任务执行前的result.json是否存在
+                result_file = f"./data/{args.model_name}/{test_data['identity']}_{test_data['tasktype']}_{test_data['scene']}_{test_data['instruction_idx']}/result.json"
+                existed_before = os.path.exists(result_file)
+                
                 test(controller, test_data, args.model_name, args.port)
-                success_count += 1
+                
+                # 只有新生成了result.json才算成功
+                if os.path.exists(result_file) and not existed_before:
+                    success_count += 1
             except Exception as e:
                 print(e)
                 print(f"--task{test_data['identity']}failed, End the current evaluation task!!!--")

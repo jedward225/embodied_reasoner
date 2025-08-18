@@ -164,8 +164,11 @@ class BaseAgent(ABC):
             path = prefix_save_path
         else:
             path = os.path.join(prefix_save_path, self.scene)
-        if not os.path.exists(path):
-            os.makedirs(path)
+        try:
+            os.makedirs(path, exist_ok=True)
+        except Exception as e:
+            print(f"Warning: Failed to create directory {path}: {e}")
+            return None
         
         image_name = ""
         for key in kargs.keys():
@@ -174,19 +177,26 @@ class BaseAgent(ABC):
                 
         # 获取第三方相机的图像
         if "third_party_camera_frames" in kargs.keys():
-            image = Image.fromarray(self.controller.last_event.third_party_camera_frames[-1])
-            # current_path = os.getcwd()
-            # full_path = os.path.join(current_path, path)
-            # full_path = os.path.normpath(full_path)
-            image.save(f"{path}/{self.scene}_third_party{image_name}.png", format="PNG")
-            kargs.pop("third_party_camera_frames")
+            try:
+                image = Image.fromarray(self.controller.last_event.third_party_camera_frames[-1])
+                # current_path = os.getcwd()
+                # full_path = os.path.join(current_path, path)
+                # full_path = os.path.normpath(full_path)
+                image.save(f"{path}/{self.scene}_third_party{image_name}.png", format="PNG")
+                kargs.pop("third_party_camera_frames")
+            except Exception as e:
+                print(f"Warning: Failed to save third party image: {e}")
         
         if "no_agent_view" not in kargs.keys():
-            image = Image.fromarray(self.controller.last_event.frame)
-            # current_path = os.getcwd()
-            # full_path = os.path.join(current_path, path)
-            # full_path = os.path.normpath(full_path)
-            image.save(f"{path}/{self.scene}{image_name}.png", format="PNG")
+            try:
+                image = Image.fromarray(self.controller.last_event.frame)
+                # current_path = os.getcwd()
+                # full_path = os.path.join(current_path, path)
+                # full_path = os.path.normpath(full_path)
+                image.save(f"{path}/{self.scene}{image_name}.png", format="PNG")
+            except Exception as e:
+                print(f"Warning: Failed to save agent view image: {e}")
+                return None
 
         return f"{path}/{self.scene}{image_name}.png"
 
