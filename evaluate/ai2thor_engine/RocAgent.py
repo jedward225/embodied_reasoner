@@ -101,9 +101,9 @@ class RocAgent(BaseAgent):
         # self.init_agent_corner()
         
         # Enhanced navigation configuration
-        self.enable_object_indexing = True      # For object indexing
-        self.enable_dialogue_system = True      # For VLM-based disambiguation
-        self.enable_multi_view = True           # For multi-view observation
+        self.enable_object_indexing = False      # For object indexing
+        self.enable_dialogue_system = False      # For VLM-based disambiguation
+        self.enable_multi_view = False           # For multi-view observation
         self.confidence_gap_threshold = 30      # Auto-select if confidence gap > 30%
         self.current_task_description = ""      # Set by task context
         self.current_gpt4o_reasoning = ""       # Store GPT-4o reasoning for VLM prompts

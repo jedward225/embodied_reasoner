@@ -41,6 +41,8 @@ evaluate/
 └── utils.py
 ```
 
+![Architecture](img/image.png)
+
 ## Core Components
 
 ### 1. AI2-THOR Engine (`ai2thor_engine/`)
